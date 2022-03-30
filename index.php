@@ -31,6 +31,6 @@ if (!isset($_COOKIE["email"])) {
 }
 
 // Instantiate the controller and run
-$trivia = new FinanceController($command);
+$trivia = new MovieController($command);
 session_start();
 $trivia->run();

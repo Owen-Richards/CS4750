@@ -1,6 +1,6 @@
 <?php
 
-class FinanceController {
+class MovieController {
     private $command;
 
     private $db;
@@ -11,7 +11,7 @@ class FinanceController {
         //***********************************
         // If we use Composer to include the Monolog Logger
         global $log;
-        $this->logger = new \Monolog\Logger("FinanceController");
+        $this->logger = new \Monolog\Logger("MovieController");
         $this->logger->pushHandler($log);
         //***********************************
 
