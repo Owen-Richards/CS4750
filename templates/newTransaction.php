@@ -28,17 +28,17 @@
     <body>
         <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
             <div class="container-fluid">
-                <a class="navbar-brand" href="?command=transactionHistory">Finance Tracker</a>
+                <a class="navbar-brand" href="?command=transactionHistory">Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarsExample02">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="?command=transactionHistory">Your Transaction History</a>
+                            <a class="nav-link" href="?command=transactionHistory">Your Movies</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="?command=newTransaction">New Transaction</a>
+                            <a class="nav-link" href="?command=newTransaction">Movie Finder</a>
                         </li>
                     </ul>
                     <form class="d-flex">
@@ -50,8 +50,8 @@
 
         <div class="container" style="margin-top: 10px;">
             <div class="row col-xs-8">
-                <h1>Enter a new transaction</h1>
-                <p> This transaction will be added to your transaction history</p>
+                <h1>Movie Finder</h1>
+                <p> Search for what movie you would like to watch. </p>
             </div>
             <div class="row justify-content-center">
                 <div class="col-4">
@@ -61,26 +61,26 @@
                         <input type="text" class="form-control" id="name" name="name" required/>
                     </div>
                     <div class="mb-5">
-                        <label for="category" class="form-label">Category</label>
+                        <label for="category" class="form-label">Genre</label>
                         <input type="text" class="form-control" id="category" name="category" required/>
                     </div>
                     <div class="mb-5">
-                        <label for="t_date" class="form-label">Date</label>
+                        <label for="t_date" class="form-label">Date (year)</label>
                         <input type="date" class="form-control" id="t_date" name="t_date" required/>
                     </div>
                     <div class="mb-5">
-                        <label for="amount" class="form-label">Amount</label>
+                        <label for="amount" class="form-label">Director</label>
                         <input type="number" min="0.00" max="10000.00" step="0.01" class="form-control" id="amount" name="amount" required/>
                     </div>
-                    <div class="mb-5">
+                    <!-- <div class="mb-5">
                         <label for="type" class="form-label">Type</label>
                         <select id="type" class="form-control"  name="type" size="2" required>
                             <option value="Credit">Credit</option>
                             <option value="Debit">Debit</option>
                         </select>
-                    </div>
+                    </div> -->
                     <div class="text-center">                
-                        <button type="submit" class="btn btn-primary">Submit Transaction</button>
+                        <button type="submit" class="btn btn-primary">Search</button>
                     </div>
                 </form>
                 </div>

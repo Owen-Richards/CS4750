@@ -2,9 +2,9 @@
 
 class Config {
     public static $db = [
-        "host" => "localhost",
-        "user" => "",
-        "pass" => "",
-        "database" => ""
+        "host" => "mysql01.cs.virginia.edu",
+        "user" => "olr7ms",
+        "pass" => "Winter2022!!",
+        "database" => "olr7ms_d"
     ];
 }
