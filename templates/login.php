@@ -7,7 +7,7 @@
         <meta name="author" content="CS4750">
         <meta name="description" content="CS4750 Movie Database Login Page">  
 
-        <title>Movie Database Login</title>
+        <title>Movies</title>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous"> 
         <style>
@@ -27,8 +27,9 @@
     <body>
         <div class="container" style="margin-top: 15px;">
             <div class="row col-xs-8">
-                <h1>Movie Database</h1>
-                <p> Welcome to our movie database!  To get started, enter a username and password.</p>
+                <h1>Best Movie Finder Ever!</h1>
+                <p> Welcome to our movie finder app!  To get started, enter a username and password.</p>
+
             </div>
             <div class="row justify-content-center">
                 <div class="col-4">
@@ -46,7 +47,9 @@
                         <input type="password" class="form-control" id="password" name="password"/>
                     </div>
                     <div class="text-center">                
-                        <button type="submit" class="btn btn-primary">Start Browsing</button>
+
+                        <button type="submit" class="btn btn-primary">Start Watching</button>
+
                     </div>
                 </form>
                 </div>

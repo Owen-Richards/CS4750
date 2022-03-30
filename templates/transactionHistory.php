@@ -75,7 +75,7 @@
     <body>
     <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
     <div class="container-fluid">
-      <a class="navbar-brand" href="?command=transactionHistory">Finance Tracker</a>
+      <a class="navbar-brand" href="?command=transactionHistory">Home</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -83,10 +83,10 @@
       <div class="collapse navbar-collapse" id="navbarsExample02">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-              <a class="nav-link" href="?command=transactionHistory">Your Transaction History</a>
+              <a class="nav-link" href="?command=transactionHistory">Your Movies</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="?command=newTransaction">New Transaction</a>
+              <a class="nav-link" href="?command=newTransaction">Movie Finder</a>
           </li>
         </ul>
         <form class="d-flex">
@@ -98,11 +98,11 @@
 
         <div class="container" style="margin-top: 10px;">
             <div class="row col-xs-8">
-                <h1> Your Transaction Summary </h1>
-                <h3>Hello <?=$_SESSION["name"]?>, email: <?=$_SESSION["email"]?></h3>
+                <h1> Your Watchlist </h1>
+                <h3>Hello <?=$_SESSION["name"]?>, what would you like to watch today?</h3>
             </div>
             <br>
-            <h2> Your Transaction History: </h2>
+            <h2> Movies you intend to watch: </h2>
             <div class="row">
                 <div class="col-xs-8 mx-auto">
                 <form action="?command=transactionHistory" method="post">
@@ -131,12 +131,12 @@
                         <?php endif; 
                     ?>
                      <?php if (count($_SESSION["transactionList"]) <= 0): ?>
-                        <h4> You have no transactions </h4>
+                        <h4> You have no movies. </h4>
                         <?php endif; 
                     ?>
                     <br>
 
-                    <h2> Your Category Breakdown: </h2>
+                    <h2> Movies you have liked: </h2>
                     <?php if (count($_SESSION["categoryBalance"]) > 0): ?>
                         <table class="center">
                             <thead>
@@ -156,11 +156,11 @@
                         <?php endif; 
                     ?>
                     <?php if (count($_SESSION["categoryBalance"]) <= 0): ?>
-                        <h4> You have no transactions </h4>
+                        <h4> You have no liked movies </h4>
                         <?php endif; 
                     ?>
                     <br>
-                    <h2> Total Balance: $<?=$_SESSION["currentBalance"][0]["balance"]?> </h2>
+                    <!-- <h2> Total Balance: $<?=$_SESSION["currentBalance"][0]["balance"]?> </h2> -->
                 </form>
                 </div>
             </div>
