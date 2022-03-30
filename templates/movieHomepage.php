@@ -75,7 +75,7 @@
     <body>
     <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
     <div class="container-fluid">
-      <a class="navbar-brand" href="?command=transactionHistory">Home</a>
+      <a class="navbar-brand" href="?command=movieHomepage">Home</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -83,7 +83,7 @@
       <div class="collapse navbar-collapse" id="navbarsExample02">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-              <a class="nav-link" href="?command=transactionHistory">Your Movies</a>
+              <a class="nav-link" href="?command=movieHomepage">Your Movies</a>
           </li>
           <li class="nav-item">
               <a class="nav-link" href="?command=newTransaction">Movie Finder</a>
@@ -105,7 +105,7 @@
             <h2> Movies you intend to watch: </h2>
             <div class="row">
                 <div class="col-xs-8 mx-auto">
-                <form action="?command=transactionHistory" method="post">
+                <form action="?command=movieHomepage" method="post">
  
                     <?php if (count($_SESSION["transactionList"]) > 0): ?>
                         <table class="center">
