@@ -6,5 +6,6 @@ class Config {
         "user" => "olr7ms",
         "pass" => "Winter2022!!",
         "database" => "olr7ms_d"
+
     ];
 }

@@ -4,8 +4,8 @@
         <meta charset="UTF-8">  
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="CS4640">
-        <meta name="description" content="CS4640 Trivia Login Page">  
+        <meta name="author" content="CS4750">
+        <meta name="description" content="CS4750 Movie Database Login Page">  
 
         <title>Movies</title>
 
@@ -29,6 +29,7 @@
             <div class="row col-xs-8">
                 <h1>Best Movie Finder Ever!</h1>
                 <p> Welcome to our movie finder app!  To get started, enter a username and password.</p>
+
             </div>
             <div class="row justify-content-center">
                 <div class="col-4">
@@ -46,7 +47,9 @@
                         <input type="password" class="form-control" id="password" name="password"/>
                     </div>
                     <div class="text-center">                
+
                         <button type="submit" class="btn btn-primary">Start Watching</button>
+
                     </div>
                 </form>
                 </div>
