@@ -113,11 +113,33 @@ class MovieController {
             }
             elseif ( strlen($_POST["tile"]) > 0){
                 $theMovie = $this->db->query("select * from movie where Title = ?;", "s", $_POST["tile"]);
+                $MovieQuery = $this->getMoviePoster();
             }
             elseif (($_POST["rating"]) > 0){
                 $theMovie = $this->db->query("select * from movie where Rotten_Tomatoes = ?;", "s", strval($_POST["rating"]) . "/100");
             }
         }
+        include("templates/movieFinder.php");
+    }
+
+
+    private function getMoviePoster(){
+        $baseURL = "https://api.themoviedb.org/3/search/movie?api_key=46caf8e2c80595f99f27e9d1a3a820b4";
+        $query = urlencode($_POST["tile"]);
+        $theURL = $baseURL . "&query=" . $query;
+        $MovieQuery = json_decode(file_get_contents($theURL), true);
+        $posterPath = $MovieQuery["results"][0]["poster_path"];
+        $thePoster = "https://image.tmdb.org/t/p/original/" . $posterPath;
+        return $thePoster ;
+
+
+        // $triviaData = json_decode(
+        //     file_get_contents("https://opentdb.com/api.php?amount=1&category=26&difficulty=easy&type=multiple")
+        //     , true);
+        // Return the question
+        // return $triviaData["results"][0];
+        
+    }
 
         // if (isset($_POST["tile"])){
         //     $theMovie = $this->db->query("select * from movie where Title = ?;", "s", $_POST["tile"]);
@@ -135,8 +157,6 @@ class MovieController {
         // if (isset($_POST["t_date"])){
         //     $theMovie = $this->db->query("select * from movie where Year = ?;", "i", $_POST["t_date"]);
         // }
-        include("templates/movieFinder.php");
-    }
 
     // private function newTransaction(){
     //     if (isset($_POST["type"])){
