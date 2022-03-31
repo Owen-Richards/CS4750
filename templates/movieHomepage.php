@@ -107,21 +107,15 @@
                 <div class="col-xs-8 mx-auto">
                 <form action="?command=movieHomepage" method="post">
  
-                    <?php if (count($_SESSION["transactionList"]) > 0): ?>
+                    <?php if (count($_SESSION["watchlist"]) > 0): ?>
                         <table class="center">
                             <thead>
                                 <tr>
-                                    <th>Transaction ID</th>
-                                    <th>User ID</th>
-                                    <th> Name of Transaction</th>
-                                    <th>Category</th>
-                                    <th>Transaction Date</th>
-                                    <th>Amount</th>
-                                    <th>Type</th>
+                                    <th>Title</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($_SESSION["transactionList"] as $row): array_map('htmlentities', $row); ?>
+                                <?php foreach ($_SESSION["watchlist"] as $row): array_map('htmlentities', $row); ?>
                                 <tr>
                                     <td><?php echo implode('</td><td>', $row); ?></td>
                                 </tr>
@@ -130,23 +124,22 @@
                         </table>
                         <?php endif; 
                     ?>
-                     <?php if (count($_SESSION["transactionList"]) <= 0): ?>
+                     <?php if (count($_SESSION["watchlist"]) <= 0): ?>
                         <h4> You have no movies. </h4>
                         <?php endif; 
                     ?>
                     <br>
 
                     <h2> Movies you have liked: </h2>
-                    <?php if (count($_SESSION["categoryBalance"]) > 0): ?>
+                    <?php if (count($_SESSION["likes"]) > 0): ?>
                         <table class="center">
                             <thead>
                                 <tr>
-                                    <th>Category</th>
-                                    <th>Sum</th>
+                                    <th>Title</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($_SESSION["categoryBalance"] as $row): array_map('htmlentities', $row); ?>
+                                <?php foreach ($_SESSION["likes"] as $row): array_map('htmlentities', $row); ?>
                                 <tr>
                                     <td><?php echo implode('</td><td>', $row); ?></td>
                                 </tr>
@@ -155,12 +148,10 @@
                         </table>
                         <?php endif; 
                     ?>
-                    <?php if (count($_SESSION["categoryBalance"]) <= 0): ?>
+                    <?php if (count($_SESSION["likes"]) <= 0): ?>
                         <h4> You have no liked movies </h4>
                         <?php endif; 
-                    ?>
-                    <br>
-                    <!-- <h2> Total Balance: $<?=$_SESSION["currentBalance"][0]["balance"]?> </h2> -->
+                    ?> 
                 </form>
                 </div>
             </div>
