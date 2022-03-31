@@ -86,7 +86,7 @@
               <a class="nav-link" href="?command=transactionHistory">Your Transaction History</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="?command=newTransaction">New Transaction</a>
+              <a class="nav-link" href="?command=movieFinder">New Transaction</a>
           </li>
         </ul>
         <form class="d-flex">

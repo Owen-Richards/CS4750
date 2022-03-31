@@ -86,7 +86,7 @@
               <a class="nav-link" href="?command=movieHomepage">Your Movies</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="?command=newTransaction">Movie Finder</a>
+              <a class="nav-link" href="?command=movieFinder">Movie Finder</a>
           </li>
         </ul>
         <form class="d-flex">

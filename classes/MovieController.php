@@ -25,8 +25,8 @@ class MovieController {
             case "movieHomepage";
                 $this->movieHomepage();
                 break;
-            case "newTransaction";
-                $this->newTransaction();
+            case "movieFinder";
+                $this->movieFinder();
                 break;
             case "logout":
                 $this->destroyCookies();
@@ -53,7 +53,6 @@ class MovieController {
                     setcookie("email", $data[0]["email"], time() + 3600);
                     $_SESSION["name"] = $data[0]["name"];
                     $_SESSION["email"] = $data[0]["email"];
-                    // setcookie("score", $data[0]["score"], time() + 3600);
                     header("Location: ?command=movieHomepage");
                 } else {
                     $error_msg = "Wrong password";
@@ -104,6 +103,38 @@ class MovieController {
         // // $this->logger->debug("Loaded Category Balance", $catBalance);
 
         include("templates/movieHomepage.php");
+    }
+
+    private function movieFinder(){
+        if (isset($_POST["t_date"])){
+            if ($_POST["t_date"] > 1800){
+                $theMovie = $this->db->query("select * from movie where Year = ?;", "i", $_POST["t_date"]);
+            }
+            elseif ( strlen($_POST["tile"]) > 0){
+                $theMovie = $this->db->query("select * from movie where Title = ?;", "s", $_POST["tile"]);
+            }
+            elseif (($_POST["rating"]) > 0){
+                $theMovie = $this->db->query("select * from movie where Rotten_Tomatoes = ?;", "s", strval($_POST["rating"]) . "/100");
+            }
+        }
+
+        // if (isset($_POST["tile"])){
+        //     $theMovie = $this->db->query("select * from movie where Title = ?;", "s", $_POST["tile"]);
+        //     // if ($theMovie === false) {
+        //     //     $error_msg = "Error inserting transaction";
+        //     // }
+        //     // else {
+        //     //     $_SESSION["movie"] = $theMovie
+        //     // }
+
+        // }
+        // if (isset($_POST["rating"])){
+        //     $theMovie = $this->db->query("select * from movie where Rotton_Tomatoes = ?;", "i", $_POST["rating"]);
+        // }
+        // if (isset($_POST["t_date"])){
+        //     $theMovie = $this->db->query("select * from movie where Year = ?;", "i", $_POST["t_date"]);
+        // }
+        include("templates/movieFinder.php");
     }
 
     // private function newTransaction(){

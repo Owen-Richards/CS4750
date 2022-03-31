@@ -21,6 +21,38 @@
             font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
             text-align: center;
         }
+
+        table, th, td {
+            table-layout: fixed;
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            border: 1px solid black;
+            width: 100%;
+            /* border-collapse: collapse; */
+        }
+        td, th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        tr:nth-child(even){
+            background-color: #f2f2f2;
+            width: 20%;
+        }
+        tr:hover {
+            background-color: #bcebd9;
+        }
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #9becfa;
+            color: solid black;
+        }
+        table.center {
+            margin-left: auto; 
+            margin-right: auto;
+            }
+            
         </style>
 
     </head>
@@ -38,7 +70,7 @@
                             <a class="nav-link" href="?command=movieHomepage">Your Movies</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="?command=newTransaction">Movie Finder</a>
+                            <a class="nav-link" href="?command=movieFinder">Movie Finder</a>
                         </li>
                     </ul>
                     <form class="d-flex">
@@ -55,23 +87,25 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-4">
-                <form action="?command=newTransaction" method="post">
-                <div class="mb-5">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required/>
+                <form action="?command=movieFinder" method="post">
+                <div class="mb-3">
+                        <label for="title" class="form-label">Title of Movie</label>
+                        <input type="text" class="form-control" id="tile" name="tile" />
                     </div>
-                    <div class="mb-5">
-                        <label for="category" class="form-label">Genre</label>
-                        <input type="text" class="form-control" id="category" name="category" required/>
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Rotten Tomato Rating</label>
+                        <input type="number" class="form-control" id="rating" name="rating" />
                     </div>
-                    <div class="mb-5">
+                    <div class="mb-3">
                         <label for="t_date" class="form-label">Date (year)</label>
-                        <input type="date" class="form-control" id="t_date" name="t_date" required/>
+                        <input type="number" class="form-control" id="t_date" name="t_date" />
+                        <!-- <label for="t_date" class="form-label"> Date (year) </label>
+                        <input type="number" min="1900" max="2099" step="1" class="form-control" id="t_date" value="t_date" /> -->
                     </div>
-                    <div class="mb-5">
-                        <label for="amount" class="form-label">Director</label>
-                        <input type="number" min="0.00" max="10000.00" step="0.01" class="form-control" id="amount" name="amount" required/>
-                    </div>
+                    <!-- <div class="mb-5">
+                        <label for="director" class="form-label">Director</label>
+                        <input type="text" class="form-control" id="director" name="director" />
+                    </div> -->
                     <!-- <div class="mb-5">
                         <label for="type" class="form-label">Type</label>
                         <select id="type" class="form-control"  name="type" size="2" required>
@@ -82,9 +116,31 @@
                     <div class="text-center">                
                         <button type="submit" class="btn btn-primary">Search</button>
                     </div>
+                    <?php if (isset($theMovie)): ?>
+                        <table class="center">
+                            <thead>
+                                <tr>
+                                    <th> Title </th>
+                                    <th> Release Year</th>
+                                    <th> Age Rating </th>
+                                    <th> Rotton Tomatoes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($theMovie as $row): array_map('htmlentities', $row); ?>
+                                <tr>
+                                    <td><?php echo implode('</td><td>', $row); ?></td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                        <?php endif; 
+                    ?>
                 </form>
                 </div>
             </div>
+
+
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
