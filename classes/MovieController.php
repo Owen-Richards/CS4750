@@ -76,12 +76,12 @@ class MovieController {
         include("templates/login.php");
     }
 
-    // private function previousTransactions(){
-    //     $_SESSION["userID"] = $this->db->query("select id from hw5_user where email = ?;", "s", $_SESSION["email"]);
-    //     $transactionslist = $this->db->query("select * from hw5_transaction where user_id = ? order by t_date desc;", "i", intval($_SESSION["userID"][0]["id"]));
-    //     $_SESSION["transactionList"] = $transactionslist;
-    //     return $transactionslist;
-    // }
+    private function getWatchlist(){
+        $_SESSION["userID"] = $this->db->query("select id from user where email = ?;", "s", $_SESSION["email"]);
+        $watchlist = $this->db->query("select * from watchlist where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
+        $_SESSION["watchlist"] = $watchlist;
+        return $watchlist;
+    }
 
     // private function currentBalance(){
     //     $currentBal = $this->db->query("select sum(amount) as balance from hw5_transaction where user_id = ?;", "i", intval($_SESSION["userID"][0]["id"]));   
@@ -89,18 +89,18 @@ class MovieController {
     //     return $currentBal;     
     // }
 
-    // private function categoryBalance(){
-    //     $categoryBal = $this->db->query("select category, sum(amount) as balance from hw5_transaction where user_id = ? group by category;", "i", intval($_SESSION["userID"][0]["id"]));
-    //     $_SESSION["categoryBalance"] = $categoryBal;
-    //     return $categoryBal;         
-    // }
+    private function getLikes(){
+        $likes = $this->db->query("select * from likes where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
+        $_SESSION["likes"] = $likes;
+        return $likes;         
+    }
 
     private function movieHomepage(){
-        // $transactions = $this->previousTransactions();
+        $watchlist = $this->getWatchlist();
         // // $this->logger->debug("Loaded transaction", $transactions);
         // $totalBalance = $this->currentBalance();
         // // $this->logger->debug("Loaded total Balance", $totalBalance);
-        // $catBalance = $this->categoryBalance();
+        $likes = $this->getLikes();
         // // $this->logger->debug("Loaded Category Balance", $catBalance);
 
         include("templates/movieHomepage.php");
