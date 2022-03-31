@@ -117,7 +117,7 @@
                             <tbody>
                                 <?php foreach ($_SESSION["watchlist"] as $row): array_map('htmlentities', $row); ?>
                                 <tr>
-                                    <td><?php echo implode('</td><td>', $row); ?></td>
+                                    <td><?php echo implode($row); ?></td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -141,7 +141,7 @@
                             <tbody>
                                 <?php foreach ($_SESSION["likes"] as $row): array_map('htmlentities', $row); ?>
                                 <tr>
-                                    <td><?php echo implode('</td><td>', $row); ?></td>
+                                    <td><?php echo implode($row); ?></td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>

@@ -78,7 +78,7 @@ class MovieController {
 
     private function getWatchlist(){
         $_SESSION["userID"] = $this->db->query("select id from user where email = ?;", "s", $_SESSION["email"]);
-        $watchlist = $this->db->query("select * from watchlist where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
+        $watchlist = $this->db->query("select movie from watchlist where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
         $_SESSION["watchlist"] = $watchlist;
         return $watchlist;
     }
@@ -90,7 +90,7 @@ class MovieController {
     // }
 
     private function getLikes(){
-        $likes = $this->db->query("select * from likes where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
+        $likes = $this->db->query("select movie from likes where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
         $_SESSION["likes"] = $likes;
         return $likes;         
     }
