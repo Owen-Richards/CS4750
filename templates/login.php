@@ -45,9 +45,11 @@
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password" name="password"/>
+                            <?php if (isset($_GET["msg"]) && $_GET["msg"] == 'failed') {
+                            print('<h7 style="color:red"> Wrong Username / Password: Please Try Again </h7>');
+                            }?>
                         </div>
                         <div class="text-center">                
-
                             <button type="submit" class="btn btn-danger">Start Watching</button>
 
                         </div>

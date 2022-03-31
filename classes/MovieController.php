@@ -57,6 +57,7 @@ class MovieController {
                     header("Location: ?command=movieHomepage");
                 } else {
                     $error_msg = "Wrong password";
+                    header("location:?msg=failed");
                 }
             } else { 
                 $insert = $this->db->query("insert into user (name, email, password) values (?, ?, ?);", 
