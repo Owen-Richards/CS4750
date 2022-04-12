@@ -72,8 +72,10 @@
                     <div class="text-center">                
                         <button type="submit" class="btn btn-primary">Search</button>
                     </div>
-                    <p><?php print_r($MovieQuery) ?></p>
-                    <img src=<?php print_r($MovieQuery) ?> alt="Italian Trulli" width = 200px height = 300px>
+                    <?php if (isset($MovieQuery)): ?>
+                        <p><?php print_r($MovieQuery) ?></p>
+                        <img src=<?php print_r($MovieQuery) ?> alt="Italian Trulli" width = 200px height = 300px>
+                    <?php endif; ?>
                     <?php if (isset($theMovie)): ?>
                         <table class="center">
                             <thead>
