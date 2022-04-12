@@ -49,7 +49,7 @@
                 <form action="?command=movieFinder" method="post">
                 <div class="mb-3">
                         <label for="title" class="form-label">Title of Movie</label>
-                        <input type="text" class="form-control" id="tile" name="tile" />
+                        <input type="text" class="form-control" id="title" name="title" />
                     </div>
                     <div class="mb-3">
                         <label for="rating" class="form-label">Rotten Tomato Rating</label>
@@ -58,27 +58,30 @@
                     <div class="mb-3">
                         <label for="t_date" class="form-label">Date (year)</label>
                         <input type="number" class="form-control" id="t_date" name="t_date" />
-                        <!-- <label for="t_date" class="form-label"> Date (year) </label>
-                        <input type="number" min="1900" max="2099" step="1" class="form-control" id="t_date" value="t_date" /> -->
                     </div>
-                    <!-- <div class="mb-5">
-                        <label for="director" class="form-label">Director</label>
-                        <input type="text" class="form-control" id="director" name="director" />
-                    </div> -->
-                    <!-- <div class="mb-5">
-                        <label for="type" class="form-label">Type</label>
-                        <select id="type" class="form-control"  name="type" size="2" required>
-                            <option value="Credit">Credit</option>
-                            <option value="Debit">Debit</option>
-                        </select>
-                    </div> -->
                     <div class="text-center">                
                         <button type="submit" class="btn btn-primary">Search</button>
                     </div>
+                    
                     <?php if (isset($MovieQuery)): ?>
                         <p><?php print_r($MovieQuery) ?></p>
                         <img src=<?php print_r($MovieQuery) ?> alt="Italian Trulli" width = 200px height = 300px>
                     <?php endif; ?>
+
+                    <?php if (isset($theMovieTitle)):  ?>
+                        <h3>Hello <?=print_r($theMovieTitle)?>, what would you like to watch today?</h3>
+                        <h3> Number of movies : <?=print_r($numOfMovies)?></h3>
+                    <?php endif; ?>
+
+                    <?php if (isset($_SESSION["ListOfMoviePosters"]) && (count($_SESSION["ListOfMoviePosters"]) > 0) ):  ?>
+                        <?php foreach ($_SESSION["ListOfMoviePosters"] as $poster): ?>
+                            <p><?php print_r($poster) ?></p>
+                            <img src=<?php print_r($poster) ?> alt="Italian Trulli" width = 200px height = 300px>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+
+
+
                     <?php if (isset($theMovie)): ?>
                         <table class="center">
                             <thead>

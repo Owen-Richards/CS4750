@@ -110,10 +110,24 @@ class MovieController {
         if (isset($_POST["t_date"])){
             if ($_POST["t_date"] > 1800){
                 $theMovie = $this->db->query("select * from movie where Year = ?;", "i", $_POST["t_date"]);
+                $count = $this->db->query("select count(*) from movie where Year = ?;", "i", $_POST["t_date"]);
+                $numOfMovies = $count[0]["count(*)"];
+
+                $_SESSION["ListOfMoviePosters"] = array();
+
+                for ($x = 0; $x < $numOfMovies; $x++){
+                    $_SESSION["theMovieTitle"] = $theMovie[$x]["Title"];
+                    $TheMoviePosters = $this->getMoviePoster();
+                    array_push($_SESSION['ListOfMoviePosters'], $TheMoviePosters);
+                }
+                // $_SESSION["theMovieTitle"] = $theMovie[$x]["Title"];
+
+                // $MovieQuery = $this->getMoviePoster();
             }
-            elseif ( strlen($_POST["tile"]) > 0){
-                $theMovie = $this->db->query("select * from movie where Title = ?;", "s", $_POST["tile"]);
+            elseif ( strlen($_POST["title"]) > 0){
+                $theMovie = $this->db->query("select * from movie where Title = ?;", "s", $_POST["title"]);
                 $MovieQuery = $this->getMoviePoster();
+                
             }
             elseif (($_POST["rating"]) > 0){
                 $theMovie = $this->db->query("select * from movie where Rotten_Tomatoes = ?;", "s", strval($_POST["rating"]) . "/100");
@@ -125,7 +139,15 @@ class MovieController {
 
     private function getMoviePoster(){
         $baseURL = "https://api.themoviedb.org/3/search/movie?api_key=46caf8e2c80595f99f27e9d1a3a820b4";
-        $query = urlencode($_POST["tile"]);
+        if (strlen($_POST["title"]) > 0){
+            $query = urlencode($_POST["title"]);
+        }
+        elseif (isset($_SESSION["theMovieTitle"])){
+            $query = urlencode($_SESSION["theMovieTitle"]);
+        }
+        else{
+            $query = urlencode("superbad");
+        }
         $theURL = $baseURL . "&query=" . $query;
         $MovieQuery = json_decode(file_get_contents($theURL), true);
         $posterPath = $MovieQuery["results"][0]["poster_path"];
@@ -140,43 +162,4 @@ class MovieController {
         // return $triviaData["results"][0];
         
     }
-
-        // if (isset($_POST["tile"])){
-        //     $theMovie = $this->db->query("select * from movie where Title = ?;", "s", $_POST["tile"]);
-        //     // if ($theMovie === false) {
-        //     //     $error_msg = "Error inserting transaction";
-        //     // }
-        //     // else {
-        //     //     $_SESSION["movie"] = $theMovie
-        //     // }
-
-        // }
-        // if (isset($_POST["rating"])){
-        //     $theMovie = $this->db->query("select * from movie where Rotton_Tomatoes = ?;", "i", $_POST["rating"]);
-        // }
-        // if (isset($_POST["t_date"])){
-        //     $theMovie = $this->db->query("select * from movie where Year = ?;", "i", $_POST["t_date"]);
-        // }
-
-    // private function newTransaction(){
-    //     if (isset($_POST["type"])){
-    //         if ($_POST["type"] == "Debit"){
-    //             $insert = $this->db->query("insert into hw5_transaction (id, user_id, name, category, t_date, amount, type) values (NULL, ?, ?, ?, ?, ?, ?);", 
-    //                 "isssds", intval($_SESSION["userID"][0]["id"]),$_POST["name"],$_POST["category"], $_POST["t_date"], -$_POST["amount"],$_POST["type"]);
-    //             if ($insert === false) {
-    //                 $error_msg = "Error inserting transaction";
-    //             }
-    //         } 
-    //         else if ($_POST["type"] == "Credit"){
-    //             $insert = $this->db->query("insert into hw5_transaction (id, user_id, name, category, t_date, amount, type) values (NULL, ?, ?, ?, ?, ?, ?);", 
-    //                 "isssds", intval($_SESSION["userID"][0]["id"]),$_POST["name"],$_POST["category"], $_POST["t_date"], $_POST["amount"],$_POST["type"]);
-    //             if ($insert === false) {
-    //                 $error_msg = "Error inserting transaction";
-    //             }
-    //         }
-            
-    //     }
-    //     include("templates/newTransaction.php");
-
-    // }
 }
