@@ -23,10 +23,13 @@
                 <div class="collapse navbar-collapse" id="navbarsExample02">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="?command=movieHomepage">Your Movies</a>
+                            <a class="nav-link" href="?command=movieHomepage">Your Homepage</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="?command=movieFinder">Movie Finder</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?command=movieAccount">Your Account</a>
                         </li>
                     </ul>
                     <form class="d-flex">

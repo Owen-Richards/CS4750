@@ -6,9 +6,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="CS4750">
-        <meta name="description" content="CS4750 Homepage">          
+        <meta name="description" content="CS4750 Account">          
 
-        <title>Homepage</title>
+        <title>Account</title>
         <!-- <link rel="icon" type="image/x-icon" href="img/favicon.ico"> -->
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
@@ -25,12 +25,15 @@
 
       <div class="collapse navbar-collapse" id="navbarsExample02">
         <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-              <a class="nav-link" href="?command=movieHomepage">Your Movies</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="?command=movieFinder">Movie Finder</a>
-          </li>
+            <li class="nav-item">
+                <a class="nav-link" href="?command=movieHomepage">Your Homepage</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="?command=movieFinder">Movie Finder</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="?command=movieAccount">Your Account</a>
+            </li>
         </ul>
         <form class="d-flex">
             <a href="?command=logout" class="btn btn-danger">Logout</a>
@@ -48,7 +51,7 @@
             <h2> Movies you intend to watch: </h2>
             <div class="row">
                 <div class="col-xs-8 mx-auto">
-                <form action="?command=movieHomepage" method="post">
+                <form action="?command=movieAccount" method="post">
  
                     <?php if (count($_SESSION["watchlist"]) > 0): ?>
                         <table class="center">

@@ -22,8 +22,8 @@ class MovieController {
 
     public function run() {
         switch($this->command) {
-            case "movieHomepage";
-                $this->movieHomepage();
+            case "movieAccount";
+                $this->movieAccount();
                 break;
             case "movieFinder";
                 $this->movieFinder();
@@ -53,7 +53,7 @@ class MovieController {
                     setcookie("email", $data[0]["email"], time() + 3600);
                     $_SESSION["name"] = $data[0]["name"];
                     $_SESSION["email"] = $data[0]["email"];
-                    header("Location: ?command=movieHomepage");
+                    header("Location: ?command=movieAccount");
                 } else {
                     $error_msg = "Wrong password";
                     header("location:?msg=failed");
@@ -69,7 +69,7 @@ class MovieController {
                     setcookie("email", $_POST["email"], time() + 3600);
                     $_SESSION["name"] = $_POST["name"];
                     $_SESSION["email"] = $_POST["email"];
-                    header("Location: ?command=movieHomepage");
+                    header("Location: ?command=movieAccount");
                 }
             }
         }
@@ -95,7 +95,7 @@ class MovieController {
         return $likes;         
     }
 
-    private function movieHomepage(){
+    private function movieAccount(){
         $watchlist = $this->getWatchlist();
         // // $this->logger->debug("Loaded transaction", $transactions);
         // $totalBalance = $this->currentBalance();
@@ -103,7 +103,7 @@ class MovieController {
         $likes = $this->getLikes();
         // // $this->logger->debug("Loaded Category Balance", $catBalance);
 
-        include("templates/movieHomepage.php");
+        include("templates/movieAccount.php");
     }
 
     private function movieFinder(){
