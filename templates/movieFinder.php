@@ -5,56 +5,12 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="author" content="CS4640">
-        <meta name="description" content="CS4640 Trivia Login Page">  
+        <meta name="description" content="CS4750 Movie Finder">  
 
-        <title>New Transaction</title>
+        <title>Movie Finder</title>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous"> 
-        <style>
-        
-        h1   {
-            font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
-            text-align: center;
-            font-size: 35px;
-        }
-        p   {
-            font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
-            text-align: center;
-        }
-
-        table, th, td {
-            table-layout: fixed;
-            font-family: Arial, Helvetica, sans-serif;
-            border-collapse: collapse;
-            border: 1px solid black;
-            width: 100%;
-            /* border-collapse: collapse; */
-        }
-        td, th {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        tr:nth-child(even){
-            background-color: #f2f2f2;
-            width: 20%;
-        }
-        tr:hover {
-            background-color: #bcebd9;
-        }
-        th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: left;
-            background-color: #9becfa;
-            color: solid black;
-        }
-        table.center {
-            margin-left: auto; 
-            margin-right: auto;
-            }
-
-        </style>
-
+        <link href="css/Homepage.css" rel="stylesheet"> 
     </head>
 
     <body>
