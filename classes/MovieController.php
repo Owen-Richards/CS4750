@@ -107,6 +107,7 @@ class MovieController {
     }
 
     private function movieFinder(){
+        unset($_SESSION['ListOfMoviePosters']);
         if (isset($_POST["t_date"])){
             if ($_POST["t_date"] > 1800){
                 $theMovie = $this->db->query("select * from movie where Year = ?;", "i", $_POST["t_date"]);
