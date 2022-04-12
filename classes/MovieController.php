@@ -22,6 +22,9 @@ class MovieController {
 
     public function run() {
         switch($this->command) {
+            case "movieHomepage";
+                $this->movieHomepage();
+                break;
             case "movieAccount";
                 $this->movieAccount();
                 break;
@@ -75,7 +78,9 @@ class MovieController {
         }
         include("templates/login.php");
     }
-
+    private function movieHomepage(){
+        include("templates/movieHomepage.php");
+    }
     private function getWatchlist(){
         $_SESSION["userID"] = $this->db->query("select id from user where email = ?;", "s", $_SESSION["email"]);
         $watchlist = $this->db->query("select movie from watchlist where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
@@ -88,6 +93,7 @@ class MovieController {
     //     $_SESSION["currentBalance"] = $currentBal;
     //     return $currentBal;     
     // }
+
 
     private function getLikes(){
         $likes = $this->db->query("select movie from likes where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
