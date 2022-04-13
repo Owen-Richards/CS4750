@@ -91,9 +91,9 @@
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo $info[1] ?></h5>
                                         <p class="card-text"><?php echo $info[2] ?></p>
-                                        <!-- <form style="padding: 0;" method="post" action="?command=likeMovie&activityid=<?= $activity["id"] ?>"> -->
-                                            <button style="width: 100%;" class="btn btn-danger" type="submit">Like Movie</button>
-                                        <!-- </form> -->
+                                        <form style="padding: 0;" method="post" action="?command=likeMovie&movieTitleID=<?= $info[1] ?>">
+                                            <button style="width: 100%;" class="btn btn-danger" type="submit"> Like Movie </button>
+                                        </form>
                                         <a href="#" class="btn btn-primary">Go somewhere</a>
                                     </div>
                             </div>

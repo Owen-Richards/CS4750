@@ -31,6 +31,9 @@ class MovieController {
             case "movieFinder";
                 $this->movieFinder();
                 break;
+            case "likeMovie";
+                $this->likeMovie();
+                break;
             case "logout":
                 $this->destroyCookies();
             case "login":
@@ -227,19 +230,31 @@ class MovieController {
         // }
 
         private function likeMovie(){
-    //     if (isset($_GET["activityid"])) {
-    //         $activityid = $_GET["activityid"];
-    //         $deleteactivity = $this->db->query("delete from activityhub_activity where id = ?", "i", $activityid);
-    //         $deletejoin = $this->db->query("delete from activityhub_user_attendees where activity_id = ?", "i", $activityid);
+            if (isset($_GET["movieTitleID"])){
+                $movieTitleID = $_GET["movieTitleID"];
+                $user = $this->db->query("select * from user where email = ?;", "s", $_SESSION["email"] );
+                echo $movieTitleID;
+                // Need to make sure not already liked
+                $alreadyLiked = $this->db->query("select * from likes where uid = ? and movie = ?", "is", intval($_SESSION["userID"][0]["id"]), $movieTitleID );
 
-    //         if ($deleteactivity === false || $deletejoin === false) {
-    //             $_SESSION["deleteerror"] = "Could not delete activity";
-    //         }
-    //     } else {
-    //         $_SESSION["deleteerror"] = "Could not delete activity";
-    //     }
-    //     header("Location: ?command=viewactivities");
-    }
+                if (empty($alreadyLiked)) {
+                    $insertLike = $this->db->query("insert into likes (uid, movie) values (?,?)", "is", intval($_SESSION["userID"][0]["id"]), $movieTitleID );
+                    if ($insertLike === false){
+                        $error_msg = "Error inserting profile";
+                    } else {
+                        header("Location: ?command=movieFinder");
+                    }
+                }
+                else{
+                    $unlikeMovie = $this->db->query("delete from likes where uid = ? and movie = ?", "is", intval($_SESSION["userID"][0]["id"]), $movieTitleID);
+                    header("Location: ?command=movieFinder");
+
+                }
+            } else{
+                $_SESSION["likeError"] = "Unable to like movie";
+                header("Location: ?command=movieFinder");
+            }
+        }
 
         // $triviaData = json_decode(
         //     file_get_contents("https://opentdb.com/api.php?amount=1&category=26&difficulty=easy&type=multiple")
