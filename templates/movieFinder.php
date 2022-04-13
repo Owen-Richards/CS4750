@@ -65,7 +65,7 @@
                     </form>
                 </div>
             </div>
-            <div class="d-flex flex-wrap">  
+            <div class="d-flex flex-wrap justify-content-around">  
                 <?php if (isset($MovieQuery)): ?>
                     <p><?php print_r($MovieQuery) ?></p>
                     <img src=<?php print_r($MovieQuery) ?> alt="Italian Trulli" width = 200px height = 300px>
@@ -76,10 +76,9 @@
                     <h3> Number of movies : <?=print_r($numOfMovies)?></h3>
                 <?php endif; ?>
                 
-                <!-- <div class="d-flex flex-wrap"> -->
                     <?php if (isset($_SESSION["ListOfMoviePosters"]) && (count($_SESSION["ListOfMoviePosters"]) > 0) ):  ?>
                         <?php foreach ($_SESSION["ListOfMoviePosters"] as $poster): ?>
-                            <div class="card" style="width: 18rem;">
+                            <div class="card" style="width: 18rem; margin-top: 1em; margin-bottom: 1em">
                                 <img class="card-img-top" src=<?php print_r($poster) ?>  alt="Card image cap">
                                     <div class="card-body">
                                         <h5 class="card-title">Card title</h5>
@@ -91,7 +90,7 @@
                     <?php endif; ?>
             </div>
 
-                    <?php if (isset($theMovie)): ?>
+                    <!-- <?php if (isset($theMovie)): ?>
                         <table class="center">
                             <thead>
                                 <tr>
@@ -110,7 +109,7 @@
                             </tbody>
                         </table>
                         <?php endif; 
-                    ?>
+                    ?> -->
                 <!-- </form> -->
                 <!-- </div>
             </div> -->
