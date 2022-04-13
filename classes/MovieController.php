@@ -226,6 +226,20 @@ class MovieController {
 
         // }
 
+        private function likeMovie(){
+    //     if (isset($_GET["activityid"])) {
+    //         $activityid = $_GET["activityid"];
+    //         $deleteactivity = $this->db->query("delete from activityhub_activity where id = ?", "i", $activityid);
+    //         $deletejoin = $this->db->query("delete from activityhub_user_attendees where activity_id = ?", "i", $activityid);
+
+    //         if ($deleteactivity === false || $deletejoin === false) {
+    //             $_SESSION["deleteerror"] = "Could not delete activity";
+    //         }
+    //     } else {
+    //         $_SESSION["deleteerror"] = "Could not delete activity";
+    //     }
+    //     header("Location: ?command=viewactivities");
+    }
 
         // $triviaData = json_decode(
         //     file_get_contents("https://opentdb.com/api.php?amount=1&category=26&difficulty=easy&type=multiple")
