@@ -113,21 +113,17 @@ class MovieController {
     }
 
     private function movieFinder(){
-        unset($_SESSION['ListOfMoviePosters']);
+        unset($_SESSION['MovieInfo']);
         if (isset($_POST["t_date"])){
             if ($_POST["t_date"] > 1800){
                 $theMovie = $this->db->query("select * from movie where Year = ?;", "i", $_POST["t_date"]);
                 $count = $this->db->query("select count(*) from movie where Year = ?;", "i", $_POST["t_date"]);
                 $numOfMovies = $count[0]["count(*)"];
 
-                $_SESSION["ListOfMoviePosters"] = array();
-                $_SESSION["MovieDirector"] = array();
                 $_SESSION["MovieInfo"] = array();
 
                 for ($x = 0; $x < $numOfMovies; $x++){
                     $_SESSION["theMovieTitle"] = $theMovie[$x]["Title"];
-                    // $TheMoviePosters = $this->getMoviePoster();
-                    // array_push($_SESSION['ListOfMoviePosters'], $TheMoviePosters);
                     $TheMovieInfo = $this->getMovieInfo();
                     array_push($_SESSION['MovieInfo'], $TheMovieInfo);
                 }
@@ -139,6 +135,43 @@ class MovieController {
             }
             elseif (($_POST["rating"]) > 0){
                 $theMovie = $this->db->query("select * from movie where Rotten_Tomatoes = ?;", "s", strval($_POST["rating"]) . "/100");
+                $count = $this->db->query("select count(*) from movie where Rotten_Tomatoes = ?;", "s", strval($_POST["rating"]) . "/100");
+                $numOfMovies = $count[0]["count(*)"];
+
+                $_SESSION["MovieInfo"] = array();
+
+                for ($x = 0; $x < $numOfMovies; $x++){
+                    $_SESSION["theMovieTitle"] = $theMovie[$x]["Title"];
+                    $TheMovieInfo = $this->getMovieInfo();
+                    array_push($_SESSION['MovieInfo'], $TheMovieInfo);
+                }
+            }
+            elseif (strlen(($_POST["director"])) > 0){
+                $theMovie = $this->db->query("select * FROM movie NATURAL JOIN directs WHERE directorName = ?;", "s", $_POST["director"]);
+                $count = $this->db->query("select count(*) FROM movie NATURAL JOIN directs WHERE directorName = ?;", "s", $_POST["director"]);
+                $numOfMovies = $count[0]["count(*)"];
+
+                $_SESSION["MovieInfo"] = array();
+
+                for ($x = 0; $x < $numOfMovies; $x++){
+                    $_SESSION["theMovieTitle"] = $theMovie[$x]["Title"];
+                    $TheMovieInfo = $this->getMovieInfo();
+                    array_push($_SESSION['MovieInfo'], $TheMovieInfo);
+                }
+            }
+            elseif (strlen(($_POST["service"])) > 0){
+                $theMovie = $this->db->query("select Title,Year,Age,Rotten_Tomatoes FROM movie NATURAL JOIN is_on WHERE movieTitle=Title AND serviceName LIKE CONCAT('%', ?, '%');", "s", $_POST["service"]);
+                $count = $this->db->query("select count(*) FROM movie NATURAL JOIN is_on WHERE movieTitle=Title AND serviceName LIKE CONCAT('%', ?, '%');", "s", $_POST["service"]);
+                $numOfMovies = $count[0]["count(*)"];
+
+
+                $_SESSION["MovieInfo"] = array();
+
+                for ($x = 0; $x < $numOfMovies; $x++){
+                    $_SESSION["theMovieTitle"] = $theMovie[$x]["Title"];
+                    $TheMovieInfo = $this->getMovieInfo();
+                    array_push($_SESSION['MovieInfo'], $TheMovieInfo);
+                }
             }
         }
         include("templates/movieFinder.php");

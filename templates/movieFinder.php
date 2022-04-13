@@ -59,6 +59,14 @@
                             <label for="t_date" class="form-label">Date (year)</label>
                             <input type="number" class="form-control" id="t_date" name="t_date" />
                         </div>
+                        <div class="mb-3">
+                            <label for="director" class="form-label">Director</label>
+                            <input type="text" class="form-control" id="director" name="director" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="service" class="form-label">Service</label>
+                            <input type="text" class="form-control" id="service" name="service" />
+                        </div>
                         <div class="text-center">                
                             <button type="submit" class="btn btn-primary">Search</button>
                         </div>
