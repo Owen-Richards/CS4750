@@ -46,34 +46,37 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-4">
-                <form action="?command=movieFinder" method="post">
-                <div class="mb-3">
-                        <label for="title" class="form-label">Title of Movie</label>
-                        <input type="text" class="form-control" id="title" name="title" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="rating" class="form-label">Rotten Tomato Rating</label>
-                        <input type="number" class="form-control" id="rating" name="rating" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="t_date" class="form-label">Date (year)</label>
-                        <input type="number" class="form-control" id="t_date" name="t_date" />
-                    </div>
-                    <div class="text-center">                
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </div>
-                    
-                    <?php if (isset($MovieQuery)): ?>
-                        <p><?php print_r($MovieQuery) ?></p>
-                        <img src=<?php print_r($MovieQuery) ?> alt="Italian Trulli" width = 200px height = 300px>
-                    <?php endif; ?>
-
-                    <?php if (isset($theMovieTitle)):  ?>
-                        <h3>Hello <?=print_r($theMovieTitle)?>, what would you like to watch today?</h3>
-                        <h3> Number of movies : <?=print_r($numOfMovies)?></h3>
-                    <?php endif; ?>
-
-                    <div class="d-flex flex-wrap">
+                    <form action="?command=movieFinder" method="post">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title of Movie</label>
+                            <input type="text" class="form-control" id="title" name="title" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Rotten Tomato Rating</label>
+                            <input type="number" class="form-control" id="rating" name="rating" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="t_date" class="form-label">Date (year)</label>
+                            <input type="number" class="form-control" id="t_date" name="t_date" />
+                        </div>
+                        <div class="text-center">                
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="d-flex flex-wrap">  
+                <?php if (isset($MovieQuery)): ?>
+                    <p><?php print_r($MovieQuery) ?></p>
+                    <img src=<?php print_r($MovieQuery) ?> alt="Italian Trulli" width = 200px height = 300px>
+                <?php endif; ?>
+                
+                <?php if (isset($theMovieTitle)):  ?>
+                    <h3>Hello <?=print_r($theMovieTitle)?>, what would you like to watch today?</h3>
+                    <h3> Number of movies : <?=print_r($numOfMovies)?></h3>
+                <?php endif; ?>
+                
+                <!-- <div class="d-flex flex-wrap"> -->
                     <?php if (isset($_SESSION["ListOfMoviePosters"]) && (count($_SESSION["ListOfMoviePosters"]) > 0) ):  ?>
                         <?php foreach ($_SESSION["ListOfMoviePosters"] as $poster): ?>
                             <div class="card" style="width: 18rem;">
@@ -83,13 +86,10 @@
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                         <a href="#" class="btn btn-primary">Go somewhere</a>
                                     </div>
-                        </div>
+                            </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
-                    </div>
-
-
-
+            </div>
 
                     <?php if (isset($theMovie)): ?>
                         <table class="center">
@@ -111,9 +111,9 @@
                         </table>
                         <?php endif; 
                     ?>
-                </form>
-                </div>
-            </div>
+                <!-- </form> -->
+                <!-- </div>
+            </div> -->
 
 
         </div>
