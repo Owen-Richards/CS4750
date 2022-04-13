@@ -121,15 +121,16 @@ class MovieController {
                 $numOfMovies = $count[0]["count(*)"];
 
                 $_SESSION["ListOfMoviePosters"] = array();
+                $_SESSION["MovieDirector"] = array();
+                $_SESSION["MovieInfo"] = array();
 
                 for ($x = 0; $x < $numOfMovies; $x++){
                     $_SESSION["theMovieTitle"] = $theMovie[$x]["Title"];
-                    $TheMoviePosters = $this->getMoviePoster();
-                    array_push($_SESSION['ListOfMoviePosters'], $TheMoviePosters);
+                    // $TheMoviePosters = $this->getMoviePoster();
+                    // array_push($_SESSION['ListOfMoviePosters'], $TheMoviePosters);
+                    $TheMovieInfo = $this->getMovieInfo();
+                    array_push($_SESSION['MovieInfo'], $TheMovieInfo);
                 }
-                // $_SESSION["theMovieTitle"] = $theMovie[$x]["Title"];
-
-                // $MovieQuery = $this->getMoviePoster();
             }
             elseif ( strlen($_POST["title"]) > 0){
                 $theMovie = $this->db->query("select * from movie where Title = ?;", "s", $_POST["title"]);
@@ -144,7 +145,24 @@ class MovieController {
     }
 
 
-    private function getMoviePoster(){
+    // private function getMoviePoster(){
+    //     $baseURL = "https://api.themoviedb.org/3/search/movie?api_key=46caf8e2c80595f99f27e9d1a3a820b4";
+    //     if (strlen($_POST["title"]) > 0){
+    //         $query = urlencode($_POST["title"]);
+    //     }
+    //     elseif (isset($_SESSION["theMovieTitle"])){
+    //         $query = urlencode($_SESSION["theMovieTitle"]);
+    //     }
+    //     else{
+    //         $query = urlencode("superbad");
+    //     }
+    //     $theURL = $baseURL . "&query=" . $query;
+    //     $MovieQuery = json_decode(file_get_contents($theURL), true);
+    //     $posterPath = $MovieQuery["results"][0]["poster_path"];
+    //     $thePoster = "https://image.tmdb.org/t/p/original/" . $posterPath;
+    //     return $thePoster ;}
+
+    private function getMovieInfo(){
         $baseURL = "https://api.themoviedb.org/3/search/movie?api_key=46caf8e2c80595f99f27e9d1a3a820b4";
         if (strlen($_POST["title"]) > 0){
             $query = urlencode($_POST["title"]);
@@ -157,9 +175,15 @@ class MovieController {
         }
         $theURL = $baseURL . "&query=" . $query;
         $MovieQuery = json_decode(file_get_contents($theURL), true);
+        $movieSummary = $MovieQuery["results"][0]["overview"];
         $posterPath = $MovieQuery["results"][0]["poster_path"];
         $thePoster = "https://image.tmdb.org/t/p/original/" . $posterPath;
-        return $thePoster ;
+        $posterAndSummary = [$thePoster, $_SESSION["theMovieTitle"], $movieSummary];
+        return $posterAndSummary;}
+
+        // private function getDirectors(){
+
+        // }
 
 
         // $triviaData = json_decode(
@@ -167,6 +191,4 @@ class MovieController {
         //     , true);
         // Return the question
         // return $triviaData["results"][0];
-        
-    }
 }

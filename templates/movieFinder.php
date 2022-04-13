@@ -76,13 +76,13 @@
                     <h3> Number of movies : <?=print_r($numOfMovies)?></h3>
                 <?php endif; ?>
                 
-                    <?php if (isset($_SESSION["ListOfMoviePosters"]) && (count($_SESSION["ListOfMoviePosters"]) > 0) ):  ?>
-                        <?php foreach ($_SESSION["ListOfMoviePosters"] as $poster): ?>
+                    <?php if (isset($_SESSION["MovieInfo"]) && (count($_SESSION["MovieInfo"]) > 0) ):  ?>
+                        <?php foreach ($_SESSION["MovieInfo"] as $info): ?>
                             <div class="card" style="width: 18rem; margin-top: 1em; margin-bottom: 1em">
-                                <img class="card-img-top" src=<?php print_r($poster) ?>  alt="Card image cap">
+                                <img class="card-img-top" src=<?php print_r($info[0]) ?>  alt="Card image cap">
                                     <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <h5 class="card-title"><?php echo $info[1] ?></h5>
+                                        <p class="card-text"><?php echo $info[2] ?></p>
                                         <a href="#" class="btn btn-primary">Go somewhere</a>
                                     </div>
                             </div>
