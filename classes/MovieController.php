@@ -130,8 +130,16 @@ class MovieController {
             }
             elseif ( strlen($_POST["title"]) > 0){
                 $theMovie = $this->db->query("select * from movie where Title = ?;", "s", $_POST["title"]);
-                $MovieQuery = $this->getMoviePoster();
-                
+                $count = $this->db->query("select count(*) from movie where Title = ?;", "s", $_POST["title"]);
+                $numOfMovies = $count[0]["count(*)"];
+
+                $_SESSION["MovieInfo"] = array();
+
+                for ($x = 0; $x < $numOfMovies; $x++){
+                    $_SESSION["theMovieTitle"] = $theMovie[$x]["Title"];
+                    $TheMovieInfo = $this->getMovieInfo();
+                    array_push($_SESSION['MovieInfo'], $TheMovieInfo);
+                }
             }
             elseif (($_POST["rating"]) > 0){
                 $theMovie = $this->db->query("select * from movie where Rotten_Tomatoes = ?;", "s", strval($_POST["rating"]) . "/100");
