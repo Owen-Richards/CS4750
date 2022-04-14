@@ -37,6 +37,12 @@ class MovieController {
             case "likeMovie";
                 $this->likeMovie();
                 break;
+            case "watchedMovie";
+                $this->watchedMovie();
+                break;
+            case "addToWatchlist";
+                $this->addToWatchlist();
+                break;
             case "logout":
                 $this->destroyCookies();
             case "login":
@@ -94,6 +100,13 @@ class MovieController {
         return $watchlist;
     }
 
+    private function getAlreadyWatched(){
+        $_SESSION["userID"] = $this->db->query("select id from user where email = ?;", "s", $_SESSION["email"]);
+        $watched = $this->db->query("select movie from has_watched where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
+        $_SESSION["watched"] = $watched;
+        return $watched;
+    }
+
     // private function currentBalance(){
     //     $currentBal = $this->db->query("select sum(amount) as balance from hw5_transaction where user_id = ?;", "i", intval($_SESSION["userID"][0]["id"]));   
     //     $_SESSION["currentBalance"] = $currentBal;
@@ -109,12 +122,8 @@ class MovieController {
 
     private function movieAccount(){
         $watchlist = $this->getWatchlist();
-        // // $this->logger->debug("Loaded transaction", $transactions);
-        // $totalBalance = $this->currentBalance();
-        // // $this->logger->debug("Loaded total Balance", $totalBalance);
         $likes = $this->getLikes();
-        // // $this->logger->debug("Loaded Category Balance", $catBalance);
-
+        $watched = $this->getAlreadyWatched();
         include("templates/movieAccount.php");
     }
 
@@ -251,6 +260,54 @@ class MovieController {
                 }
             } else{
                 $_SESSION["likeError"] = "Unable to like movie";
+                include("templates/movieFinder.php");            }
+        }
+
+        private function watchedMovie(){
+            if (isset($_GET["movieTitleID"])){
+                $movieTitleID = $_GET["movieTitleID"];
+                $user = $this->db->query("select * from user where email = ?;", "s", $_SESSION["email"] );
+                echo $movieTitleID;
+                // Need to make sure not already in has_watched
+                $alreadyWatched = $this->db->query("select * from has_watched where uid = ? and movie = ?", "is", intval($_SESSION["userID"][0]["id"]), $movieTitleID );
+
+                if (empty($alreadyWatched)) {
+                    $insertWatched = $this->db->query("insert into has_watched (uid, movie) values (?,?)", "is", intval($_SESSION["userID"][0]["id"]), $movieTitleID );
+                    if ($insertWatched === false){
+                        $error_msg = "Error inserting profile";
+                    } else {
+                        include("templates/movieFinder.php");                    }
+                }
+                else{
+                    $unwatchMovie = $this->db->query("delete from has_watched where uid = ? and movie = ?", "is", intval($_SESSION["userID"][0]["id"]), $movieTitleID);
+                    include("templates/movieFinder.php");
+                }
+            } else{ //need to fix this
+                $_SESSION["watchedError"] = "Unable to add to has watched list";
+                include("templates/movieFinder.php");            }
+        }
+
+        private function addToWatchlist(){
+            if (isset($_GET["movieTitleID"])){
+                $movieTitleID = $_GET["movieTitleID"];
+                $user = $this->db->query("select * from user where email = ?;", "s", $_SESSION["email"] );
+                echo $movieTitleID;
+                // Need to make sure not already on watchlist
+                $alreadyOnList = $this->db->query("select * from watchlist where uid = ? and movie = ?", "is", intval($_SESSION["userID"][0]["id"]), $movieTitleID );
+
+                if (empty($alreadyOnList)) {
+                    $insertWatchlist = $this->db->query("insert into watchlist (uid, movie) values (?,?)", "is", intval($_SESSION["userID"][0]["id"]), $movieTitleID );
+                    if ($insertWatchlist === false){
+                        $error_msg = "Error inserting profile";
+                    } else {
+                        include("templates/movieFinder.php");                    }
+                }
+                else{
+                    $unWatchlistMovie = $this->db->query("delete from watchlist where uid = ? and movie = ?", "is", intval($_SESSION["userID"][0]["id"]), $movieTitleID);
+                    include("templates/movieFinder.php");
+                }
+            } else{ //need to fix this
+                $_SESSION["watchlistError"] = "Unable to add to watchlist";
                 include("templates/movieFinder.php");            }
         }
 

@@ -59,7 +59,7 @@
         
         <div class="container" style="margin-top: 10px;">
             <div class="row col-xs-8">
-                <h1> Your Watchlist </h1>
+                <h1> Your Account </h1>
             </div>
             <br>
             <h2> Movies you intend to watch: </h2>
@@ -111,6 +111,31 @@
                     <?php if (count($_SESSION["likes"]) <= 0): ?>
                         <h4> You have no liked movies </h4>
                     <?php endif; ?> 
+
+                    <br>
+
+                    <h2> Movies you have watched: </h2>
+                    <?php if (count($_SESSION["watched"]) > 0): ?>
+                        <table class="center">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($_SESSION["watched"] as $row): array_map('htmlentities', $row); ?>
+                                <tr>
+                                    <td><?php echo implode($row); ?></td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+
+                    <?php if (count($_SESSION["watched"]) <= 0): ?>
+                        <h4> You have not watched any movies. </h4>
+                    <?php endif; ?>
+
                 </form>
             </div>
         </div>

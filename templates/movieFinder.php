@@ -95,7 +95,12 @@
                                         <form style="padding: 0;" method="post" action="?command=likeMovie&movieTitleID=<?= $info[1] ?>">
                                             <button style="width: 100%;" class="btn btn-danger" type="submit"> Like Movie </button>
                                         </form>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        <form style="padding: 0;" method="post" action="?command=watchedMovie&movieTitleID=<?= $info[1] ?>">
+                                            <button style="width: 100%;" class="btn btn-success" type="submit"> Already Watched</button>
+                                        </form>
+                                        <form style="padding: 0;" method="post" action="?command=addToWatchlist&movieTitleID=<?= $info[1] ?>">
+                                            <button style="width: 100%;" class="btn btn-info" type="submit"> Add to Watchlist</button>
+                                        </form>
                                     </div>
                             </div>
                         <?php endforeach; ?>
