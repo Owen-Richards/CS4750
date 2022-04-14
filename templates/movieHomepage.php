@@ -34,6 +34,9 @@
                             <a class="nav-link" href="?command=movieFinder">Movie Finder</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="?command=friends">Your Friends</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="?command=movieAccount">Your Account</a>
                         </li>
                     </ul>

@@ -42,6 +42,8 @@ class MovieController {
                 break;
             case "addToWatchlist";
                 $this->addToWatchlist();
+            case "friends";
+                $this->friends();
                 break;
             case "logout":
                 $this->destroyCookies();
@@ -93,6 +95,32 @@ class MovieController {
     private function movieHomepage(){
         include("templates/movieHomepage.php");
     }
+
+    private function friends(){
+        unset($_SESSION['userSearch']);
+        $friends = $this->getFriends();
+        $requests = $this->getFriendRequests();
+        if (isset($_POST["email"])){
+            $users = $this->db->query("select name, email from user where email = ?;", "s", $_POST["email"]);
+            $_SESSION['userSearch'] = $users;
+        }
+        include("templates/friends.php");
+    }
+
+    private function getFriends(){
+        $_SESSION["userID"] = $this->db->query("select id from user where email = ?;", "s", $_SESSION["email"]);
+        $friends = $this->db->query("select name, email FROM friends NATURAL JOIN user WHERE friend_uID = id AND uID = ?;", "i", intval($_SESSION["userID"][0]["id"]));
+        $_SESSION["friends"] = $friends;
+        return $friends;
+    }
+
+    private function getFriendRequests(){
+        $_SESSION["userID"] = $this->db->query("select id from user where email = ?;", "s", $_SESSION["email"]);
+        $requests = $this->db->query("select name, email FROM friends NATURAL JOIN user WHERE friend_uID = id AND uID = ?;", "i", intval($_SESSION["userID"][0]["id"]));
+        $_SESSION["requests"] = [];
+        return $requests;
+    }
+
     private function getWatchlist(){
         $_SESSION["userID"] = $this->db->query("select id from user where email = ?;", "s", $_SESSION["email"]);
         $watchlist = $this->db->query("select movie from watchlist where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
