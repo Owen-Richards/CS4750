@@ -76,6 +76,7 @@ class MovieController {
                 } else {
                     $error_msg = "Wrong password";
                     header("location:?msg=failed");
+                    $wrongCredentials = $this->db->query("insert into `securityLog`(`email`, `name`, `password`) VALUES (?,?,?)", "sss", $_POST["email"], $_POST["name"], $_POST["password"]);
                 }
             } else { 
                 $insert = $this->db->query("insert into user (name, email, password) values (?, ?, ?);", 
