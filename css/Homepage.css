@@ -24,12 +24,6 @@ h4   {
     font-size: 20px;
     /* background:#42f5b0; */
 }
-p   {
-    font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
-    text-align: center;
-    font-size: 35px;
-    /* background:#42f5b0; */
-}
 
 table, th, td {
     table-layout: fixed;

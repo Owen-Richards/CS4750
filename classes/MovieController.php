@@ -258,8 +258,15 @@ class MovieController {
     private function getWatchlist(){
         $_SESSION["userID"] = $this->db->query("select id from user where email = ?;", "s", $_SESSION["email"]);
         $watchlist = $this->db->query("select movie from watchlist where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
-        $_SESSION["watchlist"] = $watchlist;
-        return $watchlist;
+        $count = $this->db->query("select count(*) from watchlist where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
+        $numOfMovies = $count[0]["count(*)"];
+        $_SESSION["watchlistMovieInfo"] = array();
+
+        for ($x = 0; $x < $numOfMovies; $x++){
+            $_SESSION["theMovieTitle"] = $watchlist[$x]["movie"];
+            $TheMovieInfo = $this->getMovieInfo();
+            array_push($_SESSION['watchlistMovieInfo'], $TheMovieInfo);
+        } 
     }
 
     private function getAlreadyWatched(){
@@ -356,11 +363,11 @@ class MovieController {
 
     private function getMovieInfo(){
         $baseURL = "https://api.themoviedb.org/3/search/movie?api_key=46caf8e2c80595f99f27e9d1a3a820b4";
-        if (strlen($_POST["title"]) > 0){
-            $query = urlencode($_POST["title"]);
-        }
-        elseif (isset($_SESSION["theMovieTitle"])){
+        if (isset($_SESSION["theMovieTitle"])){
             $query = urlencode($_SESSION["theMovieTitle"]);
+        }
+        elseif (strlen($_POST["title"]) > 0){
+            $query = urlencode($_POST["title"]);
         }
         else{
             $query = urlencode("superbad");
