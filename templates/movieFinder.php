@@ -96,10 +96,10 @@
                                         <h5 class="card-title"><?php echo $info[1] ?></h5>
                                         <p class="card-text"><?php echo $info[2] ?></p>
                                         <form style="padding: 0;" method="post" action="?command=likeMovie&movieTitleID=<?= $info[1] ?>">
-                                            <button style="width: 100%;" class="btn btn-danger" type="submit"> Like Movie </button>
+                                            <button style="width: 100%;" class="btn btn-danger mb-2" type="submit"> Like Movie </button>
                                         </form>
                                         <form style="padding: 0;" method="post" action="?command=watchedMovie&movieTitleID=<?= $info[1] ?>">
-                                            <button style="width: 100%;" class="btn btn-success" type="submit"> Already Watched</button>
+                                            <button style="width: 100%;" class="btn btn-success mb-2" type="submit"> Already Watched</button>
                                         </form>
                                         <form style="padding: 0;" method="post" action="?command=addToWatchlist&movieTitleID=<?= $info[1] ?>">
                                             <button style="width: 100%;" class="btn btn-info" type="submit"> Add to Watchlist</button>

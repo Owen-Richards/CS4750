@@ -40,10 +40,11 @@ class MovieController {
             case "watchedMovie";
                 $this->watchedMovie();
                 break;
-            case "addToWatchlist";
-                $this->addToWatchlist();
             case "friends";
                 $this->friends();
+                break;
+            case "addToWatchlist";
+                $this->addToWatchlist();
                 break;
             case "logout":
                 $this->destroyCookies();
@@ -337,10 +338,4 @@ class MovieController {
                 $_SESSION["watchlistError"] = "Unable to add to watchlist";
                 include("templates/movieFinder.php");            }
         }
-
-        // $triviaData = json_decode(
-        //     file_get_contents("https://opentdb.com/api.php?amount=1&category=26&difficulty=easy&type=multiple")
-        //     , true);
-        // Return the question
-        // return $triviaData["results"][0];
 }
