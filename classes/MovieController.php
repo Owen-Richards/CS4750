@@ -13,7 +13,7 @@ class MovieController {
         global $log;
         $this->logger = new \Monolog\Logger("MovieController");
         $this->logger->pushHandler($log);
-        //***********************************
+        //************************************
 
         $this->command = $command;
 
@@ -168,17 +168,23 @@ class MovieController {
         }
     }
 
+    // $haveTrigger = $this->db->query("create trigger ")
+
     private function changeReview(){
         if(isset($_POST["movie"])){
-            $update = $this->db->query(
-                "update review set movieTitle=(?), description=(?), rating=(?) where reviewID=(?);",
-                "ssii",
-                $_POST["movie"],
-                $_POST["about"],
-                $_POST["yourRating"],
-                $_SESSION["editOpinion"][0]["reviewID"]
-            );
-            header("Location: ?command=movieHomepage");
+            // $AdvanceSQLConstraint = $this->db->query("ALTER TABLE review ADD CONSTRAINT checkRating CHECK (rating >= 0 AND rating <= 10)");
+            // echo print $AdvanceSQLConstraint;
+            // if($AdvanceSQLConstraint == true){
+                $update = $this->db->query(
+                    "update review set movieTitle=(?), description=(?), rating=(?) where reviewID=(?);",
+                    "ssii",
+                    $_POST["movie"],
+                    $_POST["about"],
+                    $_POST["yourRating"],
+                    $_SESSION["editOpinion"][0]["reviewID"]
+                );
+                header("Location: ?command=movieHomepage");
+            // }
         }
     }
 

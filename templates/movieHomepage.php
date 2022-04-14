@@ -76,6 +76,7 @@
           <br>
           <br>
             <h1> What do you want to watch today!! </h1>
+            <h1> Here are some reveiws others had!! </h1>
           <br>
           <br>
           <br>
