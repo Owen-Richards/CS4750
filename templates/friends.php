@@ -59,6 +59,7 @@
                         <div class="text-center mb-3">                
                             <button type="submit" class="btn btn-primary">Search</button>
                         </div>
+                    </form>
 
                         <?php if (isset($_SESSION["userSearch"]) && (count($_SESSION["userSearch"]) > 0) ): ?>
                             <?php foreach ($_SESSION["userSearch"] as $row): ?>
@@ -67,7 +68,9 @@
                                         <tr>
                                             <td><?php echo implode('</td><td>', $row); ?></td>
                                             <td style="text-align:center">
-                                                <button type="submit" class="btn btn-outline-success btn-sm">Add</button>
+                                                <form method="post" action="?command=addFriend&requestee=<?=$row["email"]?>">
+                                                    <button type="submit" class="btn btn-outline-success btn-sm">Add</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -82,13 +85,21 @@
                         <table class="table" >
                             <thead>
                                 <tr>
-                                    <th>Requests</th>
+                                    <th colspan=3>Requests</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($_SESSION["requests"] as $row): array_map('htmlentities', $row); ?>
                                 <tr>
-                                    <td><?php echo implode($row); ?></td>
+                                    <td><?php echo implode('</td><td>',$row); ?></td>
+                                    <td style="text-align:center">
+                                    <form class="mb-1" method="post" action="?command=acceptFriendRequest&requester=<?=$row["email"]?>">
+                                        <button type="submit" class="btn btn-outline-success btn-sm">Accept</button>
+                                    </form>
+                                    <form method="post" action="?command=declineFriendRequest&requester=<?=$row["email"]?>">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">Decline</button>
+                                    </form>
+                                    </td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -122,7 +133,9 @@
                                 <tr>
                                     <td><?php echo implode('</td><td>', $row); ?></td>
                                     <td style="text-align:center">
-                                        <button type="submit" class="btn btn-outline-danger btn-sm">Remove</button>
+                                        <form method="post" action="?command=removeFriend&removee=<?=$row["email"]?>">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">Remove</button>
+                                        </form>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
