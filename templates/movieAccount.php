@@ -21,6 +21,17 @@
             .card img{
                 width:20%;
             }
+            
+            p{
+                font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
+                text-align: center;
+                font-size: 20px;
+            }
+            h5   {
+                font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
+                text-align: center;
+                font-size: 30px;
+            }
         </style>
     </head>
 
