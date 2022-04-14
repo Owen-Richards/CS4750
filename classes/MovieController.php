@@ -31,6 +31,9 @@ class MovieController {
             case "movieFinder";
                 $this->movieFinder();
                 break;
+            case "movieFinderReload";
+                $this->movieFinderReload();
+                break;
             case "likeMovie";
                 $this->likeMovie();
                 break;
@@ -122,7 +125,6 @@ class MovieController {
                 $theMovie = $this->db->query("select * from movie where Year = ?;", "i", $_POST["t_date"]);
                 $count = $this->db->query("select count(*) from movie where Year = ?;", "i", $_POST["t_date"]);
                 $numOfMovies = $count[0]["count(*)"];
-
                 $_SESSION["MovieInfo"] = array();
 
                 for ($x = 0; $x < $numOfMovies; $x++){
@@ -188,7 +190,6 @@ class MovieController {
         include("templates/movieFinder.php");
     }
 
-
     // private function getMoviePoster(){
     //     $baseURL = "https://api.themoviedb.org/3/search/movie?api_key=46caf8e2c80595f99f27e9d1a3a820b4";
     //     if (strlen($_POST["title"]) > 0){
@@ -242,18 +243,15 @@ class MovieController {
                     if ($insertLike === false){
                         $error_msg = "Error inserting profile";
                     } else {
-                        header("Location: ?command=movieFinder");
-                    }
+                        include("templates/movieFinder.php");                    }
                 }
                 else{
                     $unlikeMovie = $this->db->query("delete from likes where uid = ? and movie = ?", "is", intval($_SESSION["userID"][0]["id"]), $movieTitleID);
-                    header("Location: ?command=movieFinder");
-
+                    include("templates/movieFinder.php");
                 }
             } else{
                 $_SESSION["likeError"] = "Unable to like movie";
-                header("Location: ?command=movieFinder");
-            }
+                include("templates/movieFinder.php");            }
         }
 
         // $triviaData = json_decode(

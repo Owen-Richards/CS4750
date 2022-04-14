@@ -73,6 +73,7 @@
                     </form>
                 </div>
             </div>
+            
             <div class="d-flex flex-wrap justify-content-around">  
                 <?php if (isset($MovieQuery)): ?>
                     <p><?php print_r($MovieQuery) ?></p>
