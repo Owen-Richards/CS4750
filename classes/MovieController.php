@@ -25,6 +25,18 @@ class MovieController {
             case "movieHomepage";
                 $this->movieHomepage();
                 break;
+            case "editReview";
+                $this->editReview();
+                break;
+            case "deleteReview";
+                $this->deleteReview();
+                break;
+            case "editYourReview";
+                $this->editYourReview();
+                break;
+            case "changeReview";
+                $this->changeReview();
+                break;
             case "movieAccount";
                 $this->movieAccount();
                 break;
@@ -49,6 +61,12 @@ class MovieController {
             case "logout":
                 $this->destroyCookies();
                 break;
+            case "makePost":
+                $this->makePost();
+                break;
+            case "goToPost":
+                $this->goToPost();
+                break;
             case "login":
             default:
                 $this->login();
@@ -59,6 +77,7 @@ class MovieController {
         setcookie("name", "", time() - 3600);
         setcookie("email", "", time() - 3600);
         session_destroy();
+        include("templates/login.php");
     }
 
     private function login() {
@@ -95,7 +114,57 @@ class MovieController {
         include("templates/login.php");
     }
     private function movieHomepage(){
+        $AllReviews = $this->db->query("select * from review");
+        $numOfReviews = count($AllReviews);
+        $_SESSION["Review"] = array();
+        for ($x = 0; $x < $numOfReviews; $x++){
+            array_push($_SESSION['Review'], $AllReviews[$x]);
+        }
+
         include("templates/movieHomepage.php");
+    }
+
+    private function editReview(){
+        if(isset($_GET["TheUID"])){
+            if(intval($_SESSION["userID"][0]["id"]) != ($_GET["TheUID"])){
+                echo '<script>alert("You cannot edit this review, not the creator")</script>';
+                include("templates/movieHomepage.php");
+            }
+            else{
+                $opinionEdit = $this->db->query(
+                    "select * from review where reviewID = ? ", "i", $_GET["theMovieID"]
+                );
+                $_SESSION["editOpinion"] = $opinionEdit;
+                include("templates/editPost.php");
+            }
+        }
+    }
+
+    private function changeReview(){
+        if(isset($_POST["movie"])){
+            $update = $this->db->query(
+                "update review set movieTitle=(?), description=(?), rating=(?) where reviewID=(?);",
+                "ssii",
+                $_POST["movie"],
+                $_POST["about"],
+                $_POST["yourRating"],
+                $_SESSION["editOpinion"][0]["reviewID"]
+            );
+            header("Location: ?command=movieHomepage");
+        }
+    }
+
+    private function deleteReview(){
+        if(isset($_GET["TheUID"])){
+            if(intval($_SESSION["userID"][0]["id"]) != ($_GET["TheUID"])){
+                echo '<script>alert("You cannot edit this review, not the creator")</script>';
+                include("templates/movieHomepage.php");
+            }
+            else{
+                $deleted = $this->db->query( "delete from review where reviewID = ?", "i", $_GET["theMovieID"]);
+                header("Location: ?command=movieHomepage");
+            }
+        }
     }
 
     private function friends(){
@@ -136,13 +205,6 @@ class MovieController {
         $_SESSION["watched"] = $watched;
         return $watched;
     }
-
-    // private function currentBalance(){
-    //     $currentBal = $this->db->query("select sum(amount) as balance from hw5_transaction where user_id = ?;", "i", intval($_SESSION["userID"][0]["id"]));   
-    //     $_SESSION["currentBalance"] = $currentBal;
-    //     return $currentBal;     
-    // }
-
 
     private function getLikes(){
         $likes = $this->db->query("select movie from likes where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
@@ -265,9 +327,33 @@ class MovieController {
         $posterAndSummary = [$thePoster, $_SESSION["theMovieTitle"], $movieSummary];
         return $posterAndSummary;}
 
-        // private function getDirectors(){
+        private function goToPost(){
+            include("templates/makePost.php");
+        }
 
-        // }
+        private function makePost(){
+            $user = $this->db->query("select * from user where email = ?;", "s", $_SESSION["email"] );
+            if ($user === false){
+                $_SESSION["dberror"] = "Error checking for user";
+            }
+            if (!empty($_POST["title"]) && !empty($_POST["description"])) {
+                // Insert the activity into the database
+
+                $opinion = $this->db->query(
+                    "insert into review (movieTitle, description, rating, uid, creator_username) 
+                    values (?, ?, ?, ?, ?);", "ssiis", 
+                    $_POST["title"], 
+                    $_POST["description"], 
+                    $_POST["rating"], 
+                    $_SESSION["userID"][0]["id"], 
+                    $_COOKIE["name"]
+                );
+                if ($opinion === false) {
+                    $error_msg = "Error inserting activity";
+                } 
+            }
+            header("Location: ?command=movieHomepage");
+        }
 
         private function likeMovie(){
             if (isset($_GET["movieTitleID"])){
@@ -290,7 +376,8 @@ class MovieController {
                 }
             } else{
                 $_SESSION["likeError"] = "Unable to like movie";
-                include("templates/movieFinder.php");            }
+                include("templates/movieFinder.php");            
+            }
         }
 
         private function watchedMovie(){

@@ -34,6 +34,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="?command=movieAccount">Your Account</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?command=goToPost">Create Post</a>
+                        </li>
                     </ul>
                     <form class="d-flex">
                         <a href="?command=logout" class="btn btn-danger">Logout</a>
