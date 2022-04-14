@@ -40,10 +40,11 @@ class MovieController {
             case "watchedMovie";
                 $this->watchedMovie();
                 break;
-            case "addToWatchlist";
-                $this->addToWatchlist();
             case "friends";
                 $this->friends();
+                break;
+            case "addToWatchlist";
+                $this->addToWatchlist();
                 break;
             case "logout":
                 $this->destroyCookies();
@@ -271,7 +272,6 @@ class MovieController {
             if (isset($_GET["movieTitleID"])){
                 $movieTitleID = $_GET["movieTitleID"];
                 $user = $this->db->query("select * from user where email = ?;", "s", $_SESSION["email"] );
-                echo $movieTitleID;
                 // Need to make sure not already liked
                 $alreadyLiked = $this->db->query("select * from likes where uid = ? and movie = ?", "is", intval($_SESSION["userID"][0]["id"]), $movieTitleID );
 
@@ -295,7 +295,6 @@ class MovieController {
             if (isset($_GET["movieTitleID"])){
                 $movieTitleID = $_GET["movieTitleID"];
                 $user = $this->db->query("select * from user where email = ?;", "s", $_SESSION["email"] );
-                echo $movieTitleID;
                 // Need to make sure not already in has_watched
                 $alreadyWatched = $this->db->query("select * from has_watched where uid = ? and movie = ?", "is", intval($_SESSION["userID"][0]["id"]), $movieTitleID );
 
@@ -319,7 +318,6 @@ class MovieController {
             if (isset($_GET["movieTitleID"])){
                 $movieTitleID = $_GET["movieTitleID"];
                 $user = $this->db->query("select * from user where email = ?;", "s", $_SESSION["email"] );
-                echo $movieTitleID;
                 // Need to make sure not already on watchlist
                 $alreadyOnList = $this->db->query("select * from watchlist where uid = ? and movie = ?", "is", intval($_SESSION["userID"][0]["id"]), $movieTitleID );
 
@@ -338,10 +336,4 @@ class MovieController {
                 $_SESSION["watchlistError"] = "Unable to add to watchlist";
                 include("templates/movieFinder.php");            }
         }
-
-        // $triviaData = json_decode(
-        //     file_get_contents("https://opentdb.com/api.php?amount=1&category=26&difficulty=easy&type=multiple")
-        //     , true);
-        // Return the question
-        // return $triviaData["results"][0];
 }
