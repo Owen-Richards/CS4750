@@ -12,16 +12,11 @@
         <meta name="description" content="CS4750 Account">          
 
         <title>Account</title>
-        <!-- <link rel="icon" type="image/x-icon" href="img/favicon.ico"> -->
+        <!-- <link rel="icon" type="image/x-icon" href="image/favicon.ico"> -->
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
         <link href="css/Homepage.css" rel="stylesheet"> 
-        <style>
-        img {
-            border-radius: 50%;
-            }
-        </style>
     </head>
 
     <body>
@@ -57,7 +52,7 @@
         </nav>
 
         <div class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white" style="background-image: url('https://s3-us-west-2.amazonaws.com/prd-rteditorial/wp-content/uploads/2018/03/13153742/RT_300EssentialMovies_700X250.jpg');">
-            <img src="https://ui-avatars.com/api/?name=<?= $_SESSION["name"]?>&background=0D8ABC&color=fff" alt="Avatar" width="100" height="100">
+            <img style = "border-radius: 50%;" src="https://ui-avatars.com/api/?name=<?= $_SESSION["name"]?>&background=0D8ABC&color=fff" alt="Avatar" width="100" height="100">
             <h1> Welcome to all your movie needs <?= $_SESSION["name"]?></h1>
             <h1> Email: <?= $_SESSION["email"]?></h1>
         </div>
