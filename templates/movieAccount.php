@@ -80,9 +80,8 @@
             <br>
             <h2> Movies you intend to watch: </h2>
             <div class="row">
-                <div class="d-flex flex-wrap justify-content-around"> 
- 
-                <?php if (isset($_SESSION["watchlistMovieInfo"]) && (count($_SESSION["watchlistMovieInfo"]) > 0) ):  ?>
+                <div class="d-flex flex-wrap justify-content-around">                 
+                    <?php if (isset($_SESSION["watchlistMovieInfo"]) && (count($_SESSION["watchlistMovieInfo"]) > 0) ):  ?>
                         <?php foreach ($_SESSION["watchlistMovieInfo"] as $info): ?>
                             <div class="card" style="margin-top: 1em; margin-bottom: 1em; flex-direction: row; max-width:auto">
                                 <img class="card-img-top" src=<?php print_r($info[0]) ?>  alt="Card image cap">
@@ -95,61 +94,54 @@
                                     </div>
                             </div>
                         <?php endforeach; ?>
-                    
-
                     <?php else: ?>
                         <h4> You have no movies. </h4>
                     <?php endif; ?>
-                    </div>
+                </div>
                     
-                    <br>
+                <br>
                     
                     <h2> Movies you have liked: </h2>
-                    <?php if (count($_SESSION["likes"]) > 0): ?>
-                        <table class="center">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($_SESSION["likes"] as $row): array_map('htmlentities', $row); ?>
-                                <tr>
-                                    <td><?php echo implode($row);?></td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                <div class="d-flex flex-wrap justify-content-around">                 
+                    <?php if (isset($_SESSION["likes"]) && (count($_SESSION["likes"]) > 0) ):  ?>
+                        <?php foreach ($_SESSION["likes"] as $info): ?>
+                            <div class="card" style="margin-top: 1em; margin-bottom: 1em; flex-direction: row; max-width:auto">
+                                <img class="card-img-top" src=<?php print_r($info[0]) ?>  alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?php echo $info[1] ?></h5>
+                                        <p class="card-text"><?php echo $info[2] ?></p>
+                                        <form style="padding: 0;text-align:center;" method="post" action="?command=removeWatchlist&movieTitle=<?= $info[1] ?>">
+                                            <button style="width: 50%;" class="btn btn-danger" type="submit"> Remove </button>
+                                        </form>
+                                    </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <h4> You have no liked movies  </h4>
                     <?php endif; ?>
+                </div>
 
-                    <?php if (count($_SESSION["likes"]) <= 0): ?>
-                        <h4> You have no liked movies </h4>
-                    <?php endif; ?> 
-
-                    <br>
+                <br>
 
                     <h2> Movies you have watched: </h2>
-                    <?php if (count($_SESSION["watched"]) > 0): ?>
-                        <table class="center">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($_SESSION["watched"] as $row): array_map('htmlentities', $row); ?>
-                                <tr>
-                                    <td><?php echo implode($row); ?></td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    <?php endif; ?>
-
-                    <?php if (count($_SESSION["watched"]) <= 0): ?>
+                    <div class="d-flex flex-wrap justify-content-around">                 
+                    <?php if (isset($_SESSION["watched"]) && (count($_SESSION["watched"]) > 0) ):  ?>
+                        <?php foreach ($_SESSION["watched"] as $info): ?>
+                            <div class="card" style="margin-top: 1em; margin-bottom: 1em; flex-direction: row; max-width:auto">
+                                <img class="card-img-top" src=<?php print_r($info[0]) ?>  alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?php echo $info[1] ?></h5>
+                                        <p class="card-text"><?php echo $info[2] ?></p>
+                                        <form style="padding: 0;text-align:center;" method="post" action="?command=removeWatchlist&movieTitle=<?= $info[1] ?>">
+                                            <button style="width: 50%;" class="btn btn-danger" type="submit"> Remove </button>
+                                        </form>
+                                    </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
                         <h4> You have not watched any movies. </h4>
                     <?php endif; ?>
-
+                </div>
                 </form>
             </div>
         </div>

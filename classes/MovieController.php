@@ -58,6 +58,12 @@ class MovieController {
             case "addToWatchlist";
                 $this->addToWatchlist();
                 break;
+            case "getLikelist";
+                $this->getLikelist();
+                break;
+            case "getAlreadySeenlist";
+                $this->getAlreadySeenlist();
+                break;
             case "acceptFriendRequest";
                 $this->acceptFriendRequest();
                 break;
@@ -270,6 +276,32 @@ class MovieController {
         } 
     }
 
+    private function getLikelist(){
+        $likelist = $this->db->query("select movie from likes where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
+        $count1 = $this->db->query("select count(*) from likes where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
+        $numOfMovies1 = $count1[0]["count(*)"];
+        $_SESSION["likes"] = array();
+
+        for ($x = 0; $x < $numOfMovies1; $x++){
+            $_SESSION["theMovieTitle"] = $likelist[$x]["movie"];
+            $TheMovieInfo1 = $this->getMovieInfo();
+            array_push($_SESSION['likes'], $TheMovieInfo1);
+        } 
+    }
+
+    private function getAlreadySeenlist(){
+        $AlreadySeenlist = $this->db->query("select movie from has_watched where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
+        $count2 = $this->db->query("select count(*) from has_watched where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
+        $numOfMovies2 = $count2[0]["count(*)"];
+        $_SESSION["watched"] = array();
+
+        for ($x = 0; $x < $numOfMovies2; $x++){
+            $_SESSION["theMovieTitle"] = $AlreadySeenlist[$x]["movie"];
+            $TheMovieInfo2 = $this->getMovieInfo();
+            array_push($_SESSION['watched'], $TheMovieInfo2);
+        } 
+    }
+
     private function getAlreadyWatched(){
         $_SESSION["userID"] = $this->db->query("select id from user where email = ?;", "s", $_SESSION["email"]);
         $watched = $this->db->query("select movie from has_watched where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
@@ -285,8 +317,8 @@ class MovieController {
 
     private function movieAccount(){
         $watchlist = $this->getWatchlist();
-        $likes = $this->getLikes();
-        $watched = $this->getAlreadyWatched();
+        $likes = $this->getLikelist();
+        $watched = $this->getAlreadySeenlist();
         include("templates/movieAccount.php");
     }
 

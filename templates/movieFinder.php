@@ -97,7 +97,7 @@
                                 <img class="card-img-top" src=<?php print_r($info[0]) ?>  alt="Card image cap">
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo $info[1] ?></h5>
-                                        <p class="card-text"><?php echo $info[2] ?></p>
+                                        <h6 class="card-text"><?php echo $info[2] ?></h6>
                                         <form style="padding: 0;" method="post" action="?command=likeMovie&movieTitleID=<?= $info[1] ?>">
                                             <button style="width: 100%;" class="btn btn-danger mb-2" type="submit"> Like Movie </button>
                                         </form>
