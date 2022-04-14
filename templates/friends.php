@@ -129,14 +129,16 @@
                         <?php endif; 
                     ?>
                     <?php if (count($_SESSION["friends"]) <= 0): ?>
-                        <thead>
-                            <tr>
-                                <th>Friends</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <td > You have no friends </td>
-                        </tbody>
+                        <table class="table" >
+                            <thead>
+                                <tr>
+                                    <th>Friends</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td > You have no friends </td>
+                            </tbody>
+                        </table>
                         <?php endif; 
                     ?> 
                 </div>
