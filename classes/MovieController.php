@@ -64,6 +64,15 @@ class MovieController {
             case "getAlreadySeenlist";
                 $this->getAlreadySeenlist();
                 break;
+            case "removeWatchList";
+                $this->removeWatchList();
+                break;
+            case "removeLikelist";
+                $this->removeLikelist();
+                break;
+            case "removeAlreadySeenlist";
+                $this->removeAlreadySeenlist();
+                break;
             case "acceptFriendRequest";
                 $this->acceptFriendRequest();
                 break;
@@ -300,6 +309,27 @@ class MovieController {
             $TheMovieInfo2 = $this->getMovieInfo();
             array_push($_SESSION['watched'], $TheMovieInfo2);
         } 
+    }
+
+    private function removeWatchList(){
+        if(isset($_GET["movieTitle"])){
+            $deleted = $this->db->query( "delete from watchlist where movie = ? and uid = ?", "si", $_GET["movieTitle"], intval($_SESSION["userID"][0]["id"]));
+            header("Location: ?command=movieAccount");
+        }
+    }
+
+    private function removeLikelist(){
+        if(isset($_GET["movieTitle"])){
+            $deleted = $this->db->query( "delete from likes where movie = ? and uid = ?", "si", $_GET["movieTitle"], intval($_SESSION["userID"][0]["id"]));
+            header("Location: ?command=movieAccount");
+        }
+    }
+
+    private function removeAlreadySeenlist(){
+        if(isset($_GET["movieTitle"])){
+            $deleted = $this->db->query( "delete from has_watched where movie = ? and uid = ?", "si", $_GET["movieTitle"], intval($_SESSION["userID"][0]["id"]));
+            header("Location: ?command=movieAccount");
+        }
     }
 
     private function getAlreadyWatched(){

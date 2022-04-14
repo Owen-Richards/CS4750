@@ -88,7 +88,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo $info[1] ?></h5>
                                         <p class="card-text"><?php echo $info[2] ?></p>
-                                        <form style="padding: 0;text-align:center;" method="post" action="?command=removeWatchlist&movieTitle=<?= $info[1] ?>">
+                                        <form style="padding: 0;text-align:center;" method="post" action="?command=removeWatchList&movieTitle=<?= $info[1] ?>">
                                             <button style="width: 50%;" class="btn btn-danger" type="submit"> Remove </button>
                                         </form>
                                     </div>
@@ -110,7 +110,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo $info[1] ?></h5>
                                         <p class="card-text"><?php echo $info[2] ?></p>
-                                        <form style="padding: 0;text-align:center;" method="post" action="?command=removeWatchlist&movieTitle=<?= $info[1] ?>">
+                                        <form style="padding: 0;text-align:center;" method="post" action="?command=removeLikelist&movieTitle=<?= $info[1] ?>">
                                             <button style="width: 50%;" class="btn btn-danger" type="submit"> Remove </button>
                                         </form>
                                     </div>
@@ -132,7 +132,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo $info[1] ?></h5>
                                         <p class="card-text"><?php echo $info[2] ?></p>
-                                        <form style="padding: 0;text-align:center;" method="post" action="?command=removeWatchlist&movieTitle=<?= $info[1] ?>">
+                                        <form style="padding: 0;text-align:center;" method="post" action="?command=removeAlreadySeenlist&movieTitle=<?= $info[1] ?>">
                                             <button style="width: 50%;" class="btn btn-danger" type="submit"> Remove </button>
                                         </form>
                                     </div>
