@@ -46,6 +46,18 @@ class MovieController {
             case "addToWatchlist";
                 $this->addToWatchlist();
                 break;
+            case "acceptFriendRequest";
+                $this->acceptFriendRequest();
+                break;
+            case "declineFriendRequest";
+                $this->declineFriendRequest();
+                break;
+            case "removeFriend";
+                $this->removeFriend();
+                break;
+            case "addFriend";
+                $this->addFriend();
+                break;
             case "logout":
                 $this->destroyCookies();
                 break;
@@ -119,9 +131,59 @@ class MovieController {
 
     private function getFriendRequests(){
         $_SESSION["userID"] = $this->db->query("select id from user where email = ?;", "s", $_SESSION["email"]);
-        $requests = $this->db->query("select name, email FROM friends NATURAL JOIN user WHERE friend_uID = id AND uID = ?;", "i", intval($_SESSION["userID"][0]["id"]));
-        $_SESSION["requests"] = [];
+        $requests = $this->db->query("select name, email FROM requests NATURAL JOIN user WHERE requester = id and requestee = ?;", "i", intval($_SESSION["userID"][0]["id"]));
+        $_SESSION["requests"] = $requests;
         return $requests;
+    }
+
+    private function acceptFriendRequest(){
+        if (isset($_GET["requester"])){
+            $requester = $_GET["requester"];
+            $user = $this->db->query("select id from user where email = ?;", "s", $_SESSION["email"]);
+            $requester = $this->db->query("select id from user where email = ?;", "s", $requester);
+            $user_id = $user[0]['id'];
+            $requester_id = $requester[0]['id'];
+            $addFriend = $this->db->query("insert into friends (uID, friend_uID) VALUES ( ? , ? )", "ii", $user_id, $requester_id);
+            $addFriend = $this->db->query("insert into friends (uID, friend_uID) VALUES ( ? , ? )", "ii", $requester_id, $user_id);
+            $removeRequest = $this->db->query("delete from requests where requester = ? and requestee = ?", "ii", $requester_id, $user_id);
+            header("Location: ?command=friends");
+        }
+    }
+
+    private function declineFriendRequest(){
+        if (isset($_GET["requester"])){
+            $requester = $_GET["requester"];
+            $user = $this->db->query("select id from user where email = ?;", "s", $_SESSION["email"]);
+            $requester = $this->db->query("select id from user where email = ?;", "s", $requester);
+            $user_id = $user[0]['id'];
+            $requester_id = $requester[0]['id'];
+            $removeRequest = $this->db->query("delete from requests where requester = ? and requestee = ?", "ii", $requester_id, $user_id);
+            header("Location: ?command=friends");
+        }
+    }
+
+    private function addFriend(){
+        if (isset($_GET["requestee"])){
+            $requestee = $_GET["requestee"];
+            $user = $this->db->query("select id from user where email = ?;", "s", $_SESSION["email"]);
+            $requestee = $this->db->query("select id from user where email = ?;", "s", $requestee);
+            $user_id = $user[0]['id'];
+            $requestee_id = $requestee[0]['id'];
+            $addRequest = $this->db->query("insert into requests (requester, requestee) VALUES ( ? , ? )", "ii", $user_id, $requestee_id);
+            header("Location: ?command=friends");
+        }
+    }
+
+    private function removeFriend(){
+        if (isset($_GET["removee"])){
+            $removee = $_GET["removee"];
+            $user = $this->db->query("select id from user where email = ?;", "s", $_SESSION["email"]);
+            $removee = $this->db->query("select id from user where email = ?;", "s", $removee);
+            $user_id = $user[0]['id'];
+            $removee_id = $removee[0]['id'];
+            $removeFriend = $this->db->query("delete from friends where friend_uID = ? and uID = ?", "ii", $removee_id, $user_id);
+            header("Location: ?command=friends");
+        }
     }
 
     private function getWatchlist(){
@@ -137,13 +199,6 @@ class MovieController {
         $_SESSION["watched"] = $watched;
         return $watched;
     }
-
-    // private function currentBalance(){
-    //     $currentBal = $this->db->query("select sum(amount) as balance from hw5_transaction where user_id = ?;", "i", intval($_SESSION["userID"][0]["id"]));   
-    //     $_SESSION["currentBalance"] = $currentBal;
-    //     return $currentBal;     
-    // }
-
 
     private function getLikes(){
         $likes = $this->db->query("select movie from likes where uid = ?;", "i", intval($_SESSION["userID"][0]["id"]));
@@ -230,23 +285,6 @@ class MovieController {
         include("templates/movieFinder.php");
     }
 
-    // private function getMoviePoster(){
-    //     $baseURL = "https://api.themoviedb.org/3/search/movie?api_key=46caf8e2c80595f99f27e9d1a3a820b4";
-    //     if (strlen($_POST["title"]) > 0){
-    //         $query = urlencode($_POST["title"]);
-    //     }
-    //     elseif (isset($_SESSION["theMovieTitle"])){
-    //         $query = urlencode($_SESSION["theMovieTitle"]);
-    //     }
-    //     else{
-    //         $query = urlencode("superbad");
-    //     }
-    //     $theURL = $baseURL . "&query=" . $query;
-    //     $MovieQuery = json_decode(file_get_contents($theURL), true);
-    //     $posterPath = $MovieQuery["results"][0]["poster_path"];
-    //     $thePoster = "https://image.tmdb.org/t/p/original/" . $posterPath;
-    //     return $thePoster ;}
-
     private function getMovieInfo(){
         $baseURL = "https://api.themoviedb.org/3/search/movie?api_key=46caf8e2c80595f99f27e9d1a3a820b4";
         if (strlen($_POST["title"]) > 0){
@@ -265,10 +303,6 @@ class MovieController {
         $thePoster = "https://image.tmdb.org/t/p/original/" . $posterPath;
         $posterAndSummary = [$thePoster, $_SESSION["theMovieTitle"], $movieSummary];
         return $posterAndSummary;}
-
-        // private function getDirectors(){
-
-        // }
 
         private function likeMovie(){
             if (isset($_GET["movieTitleID"])){
