@@ -251,6 +251,7 @@ class MovieController {
             $user_id = $user[0]['id'];
             $removee_id = $removee[0]['id'];
             $removeFriend = $this->db->query("delete from friends where friend_uID = ? and uID = ?", "ii", $removee_id, $user_id);
+            $removeFriend = $this->db->query("delete from friends where friend_uID = ? and uID = ?", "ii", $user_id, $removee_id);
             header("Location: ?command=friends");
         }
     }
