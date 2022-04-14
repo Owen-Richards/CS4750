@@ -43,9 +43,9 @@
         </nav>
 
         <div class="container" style="margin-top: 10px;">
-            <div class="row col-xs-8">
+            <div class="moveCenter">
                 <h1>Movie Finder</h1>
-                <p> Search for what movie you would like to watch. </p>
+                <h1 style = " font-size: 24px;"> Search for what movie you would like to watch. </h1>
             </div>
             <div class="row justify-content-center">
                 <div class="col-4">

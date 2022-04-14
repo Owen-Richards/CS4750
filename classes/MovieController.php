@@ -47,6 +47,7 @@ class MovieController {
                 break;
             case "logout":
                 $this->destroyCookies();
+                break;
             case "login":
             default:
                 $this->login();
@@ -271,7 +272,6 @@ class MovieController {
             if (isset($_GET["movieTitleID"])){
                 $movieTitleID = $_GET["movieTitleID"];
                 $user = $this->db->query("select * from user where email = ?;", "s", $_SESSION["email"] );
-                echo $movieTitleID;
                 // Need to make sure not already liked
                 $alreadyLiked = $this->db->query("select * from likes where uid = ? and movie = ?", "is", intval($_SESSION["userID"][0]["id"]), $movieTitleID );
 
@@ -280,7 +280,8 @@ class MovieController {
                     if ($insertLike === false){
                         $error_msg = "Error inserting profile";
                     } else {
-                        include("templates/movieFinder.php");                    }
+                        include("templates/movieFinder.php");                    
+                    }
                 }
                 else{
                     $unlikeMovie = $this->db->query("delete from likes where uid = ? and movie = ?", "is", intval($_SESSION["userID"][0]["id"]), $movieTitleID);
@@ -295,7 +296,6 @@ class MovieController {
             if (isset($_GET["movieTitleID"])){
                 $movieTitleID = $_GET["movieTitleID"];
                 $user = $this->db->query("select * from user where email = ?;", "s", $_SESSION["email"] );
-                echo $movieTitleID;
                 // Need to make sure not already in has_watched
                 $alreadyWatched = $this->db->query("select * from has_watched where uid = ? and movie = ?", "is", intval($_SESSION["userID"][0]["id"]), $movieTitleID );
 
@@ -319,7 +319,6 @@ class MovieController {
             if (isset($_GET["movieTitleID"])){
                 $movieTitleID = $_GET["movieTitleID"];
                 $user = $this->db->query("select * from user where email = ?;", "s", $_SESSION["email"] );
-                echo $movieTitleID;
                 // Need to make sure not already on watchlist
                 $alreadyOnList = $this->db->query("select * from watchlist where uid = ? and movie = ?", "is", intval($_SESSION["userID"][0]["id"]), $movieTitleID );
 
