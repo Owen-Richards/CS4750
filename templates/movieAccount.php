@@ -40,6 +40,9 @@
                             <a class="nav-link" href="?command=movieFinder">Movie Finder</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="?command=friends">Your Friends</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="?command=movieAccount">Your Account</a>
                         </li>
                     </ul>
@@ -52,28 +55,6 @@
 
         <div class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white" style="background-image: url('https://s3-us-west-2.amazonaws.com/prd-rteditorial/wp-content/uploads/2018/03/13153742/RT_300EssentialMovies_700X250.jpg');">
             <img src="https://ui-avatars.com/api/?name=<?= $_SESSION["name"]?>&background=0D8ABC&color=fff" alt="Avatar" width="100" height="100">
-      <div class="collapse navbar-collapse" id="navbarsExample02">
-        <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="?command=movieHomepage">Your Homepage</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="?command=movieFinder">Movie Finder</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="?command=friends">Your Friends</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="?command=movieAccount">Your Account</a>
-            </li>
-        </ul>
-        <form class="d-flex">
-            <a href="?command=logout" class="btn btn-danger">Logout</a>
-        </form>
-      </div>
-    </div>
-  </nav>
-
             <h1> Welcome to all your movie needs <?= $_SESSION["name"]?></h1>
             <h1> Email: <?= $_SESSION["email"]?></h1>
         </div>
